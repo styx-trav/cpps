@@ -1,0 +1,3 @@
+seems good now, might want to retouch now we undersand class methods a little better
+
+last hurdle :: non-ints given as index in SEARCH sends program into a spin, surely there's a check for that, otherwise everything works great
