@@ -12,7 +12,7 @@ class Zombie
 
 void	Zombie::announce(void)
 {
-	std::cout << name << "e>: BraiiiiiiinnnzzzZ...\n";
+	std::cout << name << ": BraiiiiiiinnnzzzZ...\n";
 }
 
 Zombie	*Zombie::newZombie(std::string name)
