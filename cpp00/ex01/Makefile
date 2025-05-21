@@ -1,7 +1,7 @@
 CC=c++
 FLAGS=-Wall -Wextra -Werror -std=c++98
 NAME=phoneBook
-SRC=main.cpp
+SRC=main.cpp Contact.cpp PhoneBook.cpp
 
 all: $(NAME)
 
