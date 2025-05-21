@@ -26,7 +26,7 @@ void	PhoneBook::addContact()
 
 void	PhoneBook::printContacts()
 {
-	int index;
+	char index;
 	std::cout << "|     index|    f_name|    l_name|  nickname|\n";
 	if (cons[0].info[0][0] == '\0')
 		return ;
@@ -38,11 +38,11 @@ void	PhoneBook::printContacts()
 		cons[i].printLine();
 	}
 	std::cin >> index;
-	if (index < 0 || index > 7 || cons[index].info[0][0] == '\0')
+	if (!(std::isdigit(index)) || index < '0' || index > '7' || cons[index - '0'].info[0][0] == '\0')
 	{
 		std::cout << index << ": bad index\n";
 		return ;
 	}
-	cons[index].printContact();
+	cons[index - '0'].printContact();
 	return ;
 }
