@@ -1,0 +1,3 @@
+can't figure out how to avoid the constructor issue in humanA(string, Weapon& !!here), will come back later
+
+found it :] it was actually the same, the little flag thing lead me astray
