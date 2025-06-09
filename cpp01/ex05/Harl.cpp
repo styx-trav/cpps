@@ -23,18 +23,15 @@ void	Harl::error(void)
 
 void	Harl::complain(std::string level)
 {
-	std::map<std::string, int> complaints;
-	typedef B* (Harl::*FuncPtr)();
-	FuncPtr f[] = {&Harl::debug, &Harl::error, &Harl::warning, &Harl::info};
-	int index = -1;
-	complaints["DEBUG"] = 0;
-	complaints["ERROR"] = 1;
-	complaints["WARNING"] = 2;
-	complaints["INFO"] = 3;
-	if (complaints.find(level) != complaints.end())
-		index = complaints[level];
-	if (index == -1)
-		std::cout << "not a level\n";
-	else
-		f[index]();
+	std::string find[4] = {"DEBUG", "ERROR", "WARNING", "INFO"};
+	void (Harl::*f[4])(void) = {&Harl::debug, &Harl::error, &Harl::warning, &Harl::info};
+	for (int i = 0; i != 4; ++i)
+	{
+		if (find[i] == level)
+		{
+			(this->*f[i])();
+			return ;
+		}
+	}
+	std::cout << "Not a level\n";
 }
