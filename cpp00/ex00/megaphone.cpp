@@ -23,8 +23,6 @@ int	main(int ac, char **av)
 		{
 			for(size_t j = 0; j != strlen(av[i]); ++j)
 				std::cout << (char)toupper(av[i][j]);
-			if (i != ac - 1)
-				std::cout << ' ';
 		}
 		std::cout << '\n';
 	}

@@ -1,0 +1,12 @@
+strings get a bunch of functions attached, beyond .length and .begin or .end
+including adjacent functions like &istream& getline(istream& is, string&str, char delim);
+which can be used with (std::cin, str) if needed, though std::cin.getline(str, size) works fine
+	//wonder if the regular getline could work like that, too
+<fstream> for file streams
+class ofstream/ifstream/fstream (out, in, both) and its member funcs
+void open(char *file, ios::openmode mode) ios::in for reading, ios::out for writing, ios::app for append, etc.
+
+
+getline, then find content in string (specifically the find function, which returns size_t pos)
+write before string1, then string2, then after string1, on repeat until end of line
+repeat
