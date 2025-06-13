@@ -1,5 +1,11 @@
-seems good now, might want to retouch now we undersand class methods a little better
+overhaul :: try using getline for stuff
+string stream ? to use
+<sstream>
+	streams are good for catching releasing the same info in different types (like str to int, etc.)
+	stream << string_input
+	stream >> int_output
+	(for example)
 
-last hurdle :: non-ints given as index in SEARCH sends program into a spin, surely there's a check for that, otherwise everything works great
-
-also please recheck the classes for public/private/norm issues once more familiar
+	can also be useful to clear stuff out once used so no data scrunges together -- .clear()
+handle ctrl-d/eof within ::cin input == punctual cin.eof() checks, then shut down the program if is
+ and use ::cin.ignore() to discard leftover info if there is

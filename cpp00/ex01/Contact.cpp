@@ -1,9 +1,17 @@
 #include "Contact.hpp"
 
+int	Contact::isEmpty()
+{
+	if (info[0][0] == '\0')
+		return 1;
+	return 0;
+}
+
 void	Contact::newContact()
 {
 	for(int j = 0; j != 5; ++j)
 	{
+		std::string str;
 		std::cout << "Please enter ";
 		if (j == 0)
 			std::cout << "the first name\n";
@@ -15,7 +23,10 @@ void	Contact::newContact()
 			std::cout << "the phone number\n";
 		else
 			std::cout << "the darkest secret\n";
-		std::cin >> info[j];
+		std::cin >> str;
+		if (std::cin.eof())
+			return ;
+		info[j] = str;
 	}
 }
 

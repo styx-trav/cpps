@@ -1,15 +1,17 @@
-#include <cstring>
-#include <iostream>
+#ifndef PHONEBOOK_HPP
+#define PHONEBOOK_HPP
 #include "Contact.hpp"
 
 class	PhoneBook
 {
-	public:
+	private:
 		Contact	cons[8];
+		int index;
+	public:
+		PhoneBook();
 		void	addContact();
 		void	printContacts();
 		void	setUp();
 };
 
-//void	PhoneBook::addContact();
-//void	PhoneBook::printContacts();
+#endif

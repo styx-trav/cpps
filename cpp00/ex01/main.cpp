@@ -1,5 +1,3 @@
-#include <cstring>
-#include <iostream>
 #include "PhoneBook.hpp"
 
 int main()
@@ -7,6 +5,8 @@ int main()
 	PhoneBook bookNote;
 	for (std::string current; current != "EXIT"; std::cin >> current)
 	{
+		if (std::cin.eof())
+			return 0;
 		if (current == "ADD")
 		{
 			bookNote.addContact();
