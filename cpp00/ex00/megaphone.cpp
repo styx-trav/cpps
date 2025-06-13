@@ -19,10 +19,10 @@ int	main(int ac, char **av)
 		std::cout << "* LOUD AND UNBEARABLE FEEDBACK NOISE *\n";
 	else
 	{
-		for(int i = 1; i != ac; ++i)
+		for(char **a = &av[1]; *a != NULL; ++a)
 		{
-			for(size_t j = 0; j != strlen(av[i]); ++j)
-				std::cout << (char)toupper(av[i][j]);
+			for(char* it = *a; it != *a+strlen(*a); ++it)
+				std::cout << (char)toupper(*it);
 		}
 		std::cout << '\n';
 	}
