@@ -3,19 +3,26 @@
 #include <cstring>
 #include <string>
 
-int main()
+int main(int argc, char **argv)
 {
-	std::ifstream streamHere("notes", std::ios::in);
-	std::ofstream streamOut("notes.replace", std::ios::out);
-	const std::string	s1 = "string";
-	const std::string	s2 = "improved_string";
-	std::string line;
+	if (argc != 4)
+		return 0;
+	
+	std::ifstream streamHere(argv[1], std::ios::in);
+	if (!streamHere)
+		return 0;
+	
+	std::string line = argv[1];
+	line = line + ".replace";
+	std::ofstream streamOut(line.c_str(), std::ios::out);
+	if (!streamOut)
+		return 0;
+	
+	const std::string	s1 = argv[2];
+	const std::string	s2 = argv[3];
 	std::string tmp;
 	size_t pos;
 
-	if (!streamHere)
-		return 0;
-	//protections go here :: check input file access, output file existence, etc. (is there more ?)
 	getline(streamHere, line);
 	while (!streamHere.eof())
 	{

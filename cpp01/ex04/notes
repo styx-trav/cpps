@@ -17,3 +17,5 @@ no, i was right, we're doing the getline method. find the position of the word i
 im sure there's a way to out stream up to a specific number position-wise, and by then ill have moved on to the next option
 
 ok, everything works great. used substr to extract the part of the string i wanted, skip ahead and get the next sample to check. now a couple of file protections and we should be good !
+
+protections on, added the input, should be good - just needs a makefile
