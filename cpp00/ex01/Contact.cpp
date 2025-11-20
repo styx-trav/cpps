@@ -23,7 +23,7 @@ void	Contact::newContact()
 			std::cout << "the phone number\n";
 		else
 			std::cout << "the darkest secret\n";
-		std::cin >> str;
+		std::getline(std::cin, str);
 		if (std::cin.eof())
 			return ;
 		info[j] = str;

@@ -13,6 +13,8 @@ void	PhoneBook::addContact()
 void	PhoneBook::printContacts()
 {
 	char index;
+	std::stringstream streamer;
+	std::string str;
 	std::cout << "|     index|    f_name|    l_name|  nickname|\n";
 	if (cons[0].isEmpty())
 		return ;
@@ -23,7 +25,9 @@ void	PhoneBook::printContacts()
 		std::cout << "|         " << i;
 		cons[i].printLine();
 	}
-	std::cin >> index;
+	std::getline(std::cin, str);
+	streamer << str;
+	streamer >> index;
 	if (std::cin.eof())
 		return;
 	if (!(std::isdigit(index)) || index < '0' || index > '7' || cons[index - '0'].isEmpty())
@@ -31,7 +35,6 @@ void	PhoneBook::printContacts()
 		std::cout << index << ": bad index\n";
 		return ;
 	}
-	std::cin.ignore();
 	cons[index - '0'].printContact();
 	return ;
 }

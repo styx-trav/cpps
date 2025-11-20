@@ -3,7 +3,7 @@
 int main()
 {
 	PhoneBook bookNote;
-	for (std::string current; current != "EXIT"; std::cin >> current)
+	for (std::string current; current != "EXIT"; std::getline(std::cin, current))
 	{
 		if (std::cin.eof())
 			return 0;

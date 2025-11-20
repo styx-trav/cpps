@@ -7,5 +7,10 @@ string stream ? to use
 	(for example)
 
 	can also be useful to clear stuff out once used so no data scrunges together -- .clear()
+
 handle ctrl-d/eof within ::cin input == punctual cin.eof() checks, then shut down the program if is
  and use ::cin.ignore() to discard leftover info if there is
+ 
+ okay, we will need to use getline then, despite my best efforts truly
+ 
+ Alright looks good, will be back maybe for a stress test
