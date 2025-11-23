@@ -1,0 +1,40 @@
+fixed point class, fractional bits set to 8 ::
+
+float to fixed formula :: x = floating_input / 2^(frac_bits)
+			also noted intput * 1 << frac_bits
+
+fixed to float formula :: x = floating_input * 2^(frac_bits)
+			also noted input / 1 << frac_bits
+
+int to fixed formula :: x = int_input / 2^(frac_bits -1)
+			also noted input * 1 << frac_bits-1
+
+fixed to int formula :: x = int_input * 2^(frac_bits -1)
+			also noted input / 1 << frac_bits-1
+
+alright im sure there's something i don't understand, cause using these formulas i can't very well shift a float into fixed then shift it back into an int without altering the number im seeing on screen.
+
+also, the range on this fixed point stuck in an integer isn't very long, if i understand correctly ? like ::
+
+fffffff.dddddddddddddddddddddddd, which implies a 7bit-wide whole number :: 2^7=128*2 max; and long fractions post fractional bit
+
+OR
+
+ffffffffffffffffffffffff.ddddddd, which implies a 24bit-wide whole number :: 2^24=16777216 max, and small decimal post fractional bit
+
+testing testing ::
+og int == 21474 ==> binary :: 101001111100010
+fixed == 5497344 ==> binary :: 101001111100010(.)00000000
+
+so indeed we shifted by eight to the left, implying our fractional_bits of 8 means we have seven whole bits to compute our decimals
+
+fixed 13886.1 ==> 11011000111110(.)00100100, which computes to a steady .140625 post fractional bit ; 
+
+okayyyyyy i've got the range :: obviously following the amount of fractional bits you can deduce how small you can store (smallest fractional bit, 2^-fb) and how big (biggest whole bit -1, so 32-8-1=23 2^23-1=8388607)
+
+ok, last one :: biggest num .5 in fixed binary :
+1111111111111111111111(.)10000000 ==> perfect translation, finally got it.
+
+still not sure why sources insisted on shifting integers less ?? but so far the program seems to work just fine as is, negative numbers included. i know we said no neg numbers, but not sure why, seems good
+
+everything seems to be working great
