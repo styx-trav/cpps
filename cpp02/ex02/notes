@@ -1,0 +1,9 @@
+okay, so next up ::
+
+comparison :: returns a boolean (check that float to int comparisons still work ?
+arithmetic :: returns new int post operation (maybe figure out if we need diff methods)
+increment/decrement :: returns old int value and moves referenced variable for pre
+			returns moved value
+			:: on this one, maybe fix an epsilon value ?
+min/max :: returns reference to the wanted Fixed object
+

@@ -20,7 +20,7 @@ Fixed::Fixed(int const num)
 Fixed::Fixed(float const number)
 {
 	std::cout << "Fixed float constructor called\n";
-	this->fixed_p = (int)(number * (1 << this->f_b));
+	this->fixed_p = (int)roundf(number * (1 << this->f_b));
 }
 
 Fixed::Fixed(const Fixed &other)
