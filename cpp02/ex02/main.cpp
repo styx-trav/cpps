@@ -49,5 +49,13 @@ int main()
 	std::cout << "see c++ : " << c++ << std::endl;
 	std::cout << "see new c : " << c << std::endl;
 	
+	//checking min/max
+	
+	std::cout << "see min (a, b): " << Fixed::min(a, b) << std::endl;
+	std::cout << "see max (c, d) : " << Fixed::max(c, d) << std::endl;
+	
+	std::cout << "see const min (a, b): " << Fixed::min((const Fixed)a, (const Fixed)b) << std::endl;
+	std::cout << "see const max (c, d) : " << Fixed::max((const Fixed)c, (const Fixed)d) << std::endl;
+	
 	return 0;
 }
