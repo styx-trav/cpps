@@ -7,3 +7,7 @@ increment/decrement :: returns old int value and moves referenced variable for p
 			:: on this one, maybe fix an epsilon value ?
 min/max :: returns reference to the wanted Fixed object
 
+
+alright, pretty far along !! had to fix up the rest of the code because i didn't realize i wasn't allowed to use friend (dick move), but it's fixed now
+
+next up :: min maxers, and decide if we want to do the bsp last exercise - seems fun

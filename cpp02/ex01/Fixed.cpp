@@ -40,10 +40,9 @@ Fixed& Fixed::operator=(const Fixed &other)
 	return *this;
 }
 
-std::ostream& operator<<(std::ostream &out, const Fixed& fix)
+std::ostream&  operator<<(std::ostream &out, Fixed const &fix)
 {
-	float res = fix.toFloat();
-	out << res;
+	out << fix.toFloat();
 	return out;
 }
 
