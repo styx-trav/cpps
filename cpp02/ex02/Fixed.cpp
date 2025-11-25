@@ -85,60 +85,60 @@ Fixed Fixed::operator++( int s )
 
 	//comparisons
 
-bool Fixed::operator<(const Fixed &b)
+bool Fixed::operator<(const Fixed &b) const
 {
 	return (this->getRawBits() < b.getRawBits());
 }
 
-bool Fixed::operator<=(const Fixed &b)
+bool Fixed::operator<=(const Fixed &b) const
 {
 	return (this->getRawBits() <= b.getRawBits());
 }
 
-bool Fixed::operator>(const Fixed &b)
+bool Fixed::operator>(const Fixed &b) const
 {
 	return (this->getRawBits() > b.getRawBits());
 }
 
-bool Fixed::operator>=(const Fixed &b)
+bool Fixed::operator>=(const Fixed &b) const
 {
 	return (this->getRawBits() >= b.getRawBits());
 }
 
-bool Fixed::operator==(const Fixed &b)
+bool Fixed::operator==(const Fixed &b) const
 {
 	return (this->getRawBits() == b.getRawBits());
 }
 
-bool Fixed::operator!=(const Fixed &b)
+bool Fixed::operator!=(const Fixed &b) const
 {
 	return (this->getRawBits() != b.getRawBits());
 }
 
 	//operations
 
-Fixed Fixed::operator+(const Fixed &b)
+Fixed Fixed::operator+(const Fixed &b) const
 {
 	Fixed neo;
 	neo.setRawBits(this->getRawBits() + b.getRawBits());
 	return neo;
 }
 
-Fixed Fixed::operator-(const Fixed &b)
+Fixed Fixed::operator-(const Fixed &b) const
 {
 	Fixed neo;
 	neo.setRawBits(this->getRawBits() - b.getRawBits());
 	return neo;
 }
 
-Fixed Fixed::operator*(const Fixed &b)
+Fixed Fixed::operator*(const Fixed &b) const
 {
 	Fixed neo;
 	neo.setRawBits((this->getRawBits() * b.getRawBits()) / (1 << neo.f_b));
 	return neo;
 }
 
-Fixed Fixed::operator/(const Fixed &b)
+Fixed Fixed::operator/(const Fixed &b) const
 {
 	Fixed neo;
 	neo.setRawBits((this->getRawBits() / b.getRawBits()) * (1 << neo.f_b));

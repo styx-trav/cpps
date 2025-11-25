@@ -6,6 +6,7 @@ int main()
 	Fixed b(-10);
 	Fixed c(123.87f);
 	Fixed d(c);
+	const Fixed e(b * b);
 	
 	a = Fixed(955.666f);
 	
@@ -27,7 +28,7 @@ int main()
         std::cout << "a is bigger than b : " << (a > b) << std::endl;
         std::cout << "b is equal to d : " << (b == d) << std::endl;
         std::cout << "c is smaller or equal to d : " << (c <= d) << std::endl;
-        std::cout << "d is smaller than c : " << (d < c) << std::endl;
+        std::cout << "d is smaller than e : " << (d < e) << std::endl;
         std::cout << "a is different from b : " << (a != b) << std::endl;
         
         //checking operations
@@ -54,8 +55,8 @@ int main()
 	std::cout << "see min (a, b): " << Fixed::min(a, b) << std::endl;
 	std::cout << "see max (c, d) : " << Fixed::max(c, d) << std::endl;
 	
-	std::cout << "see const min (a, b): " << Fixed::min((const Fixed)a, (const Fixed)b) << std::endl;
-	std::cout << "see const max (c, d) : " << Fixed::max((const Fixed)c, (const Fixed)d) << std::endl;
+	std::cout << "see const min (e, a): " << Fixed::min(e, a) << std::endl;
+	std::cout << "see const max (c, d) : " << Fixed::max(c, d) << std::endl;
 	
 	return 0;
 }
