@@ -12,6 +12,7 @@
 
 #include <iostream>
 #include <cstring>
+#include <bits/stdc++.h>
 
 int	main(int ac, char **av)
 {
@@ -19,10 +20,11 @@ int	main(int ac, char **av)
 		std::cout << "* LOUD AND UNBEARABLE FEEDBACK NOISE *\n";
 	else
 	{
-		for(char **a = &av[1]; *a != NULL; ++a)
+		for(int i = 1; av[i] != NULL; i++)
 		{
-			for(char* it = *a; it != *a+strlen(*a); ++it)
-				std::cout << (char)toupper(*it);
+			std::string s = av[i];
+			std::transform(s.begin(), s.end(), s.begin(), ::toupper);
+			std::cout << s;
 		}
 		std::cout << '\n';
 	}

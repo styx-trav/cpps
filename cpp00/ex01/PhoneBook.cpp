@@ -10,7 +10,7 @@ void	PhoneBook::addContact()
 		index = 0;
 }
 
-void	PhoneBook::printContacts()
+void	PhoneBook::printContacts() const
 {
 	char index;
 	std::stringstream streamer;

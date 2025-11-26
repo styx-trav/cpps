@@ -1,6 +1,6 @@
 #include "Contact.hpp"
 
-int	Contact::isEmpty()
+int	Contact::isEmpty() const
 {
 	if (info[0][0] == '\0')
 		return 1;
@@ -30,7 +30,7 @@ void	Contact::newContact()
 	}
 }
 
-void	Contact::printContact()
+void	Contact::printContact() const
 {
 	std::cout << "first name : " << info[0] << '\n';
 	std::cout << "last name : " << info[1] << '\n';
@@ -39,7 +39,7 @@ void	Contact::printContact()
 	std::cout << "darkest secret : " << info[4] << '\n';
 }
 
-void	Contact::printLine()
+void	Contact::printLine() const
 {
 	int	dist;
 

@@ -8,9 +8,9 @@ class Contact
 	private:
 		std::string	info[5];
 	public:
-		int	isEmpty();
-		void	printContact();
-		void	printLine();
+		int	isEmpty() const;
+		void	printContact() const;
+		void	printLine() const;
 		void	newContact();
 };
 

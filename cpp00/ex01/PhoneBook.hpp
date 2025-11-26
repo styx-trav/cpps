@@ -11,8 +11,7 @@ class	PhoneBook
 	public:
 		PhoneBook();
 		void	addContact();
-		void	printContacts();
-		void	setUp();
+		void	printContacts() const;
 };
 
 #endif
