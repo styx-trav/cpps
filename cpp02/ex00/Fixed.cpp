@@ -13,7 +13,7 @@ Fixed::~Fixed()
 
 Fixed::Fixed(const Fixed &other)
 {
-	fixed_p = other.fixed_p;
+	fixed_p = other.getRawBits();
 	std::cout << "Fixed copy constructor called\n";
 }
 
@@ -21,7 +21,7 @@ Fixed& Fixed::operator=(const Fixed &other)
 {
 	if (this != &other)
 	{
-		fixed_p = other.fixed_p;
+		fixed_p = other.getRawBits();
 		std::cout << "Fixed assignment operator called\n";
 	}
 	return *this;

@@ -20,16 +20,12 @@ Point::Point(const Point &other) : x( Fixed(other.x) ), y( Fixed (other.y) )
 	std::cout << "Point copy constructor called\n";
 }
 
-/*Point& Point::operator=(const Point &other)
+Point& Point::operator=(const Point &other)
 {
 	if (this != &other)
-	{
-		x = other.x;
-		y = other.y;
 		std::cout << "Point assignment operator called\n";
-	}
 	return *this;
-}*/
+}
 
 const Fixed &Point::get_x( void ) const
 {

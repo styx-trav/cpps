@@ -1,22 +1,30 @@
 #include <iostream>
 #include <fstream>
-#include <cstring>
 #include <string>
 
 int main(int argc, char **argv)
 {
 	if (argc != 4)
+	{
+		std::cout << "bad arguments\n";
 		return 0;
+	}
 	
 	std::ifstream streamHere(argv[1], std::ios::in);
 	if (!streamHere)
+	{
+		std::cout << "issue opening " << argv[1] << std::endl;
 		return 0;
+	}
 	
 	std::string line = argv[1];
 	line = line + ".replace";
 	std::ofstream streamOut(line.c_str(), std::ios::out);
 	if (!streamOut)
+	{
+		std::cout << "issue opening " << line << std::endl;
 		return 0;
+	}
 	
 	const std::string	s1 = argv[2];
 	const std::string	s2 = argv[3];

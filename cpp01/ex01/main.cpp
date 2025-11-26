@@ -3,16 +3,17 @@
 int main()
 {
 	Zombie *hoard;
-	hoard = ZombieHorde(5, "Yelena");
-	for (int i = 0; i != 5; ++i)
+	hoard = zombieHorde(5, "Yelena");
+	if (hoard == NULL)
 	{
-		hoard[i].announce();
+		std::cout << "error allocating\n";
+		return 0;
 	}
-	std::cout << "changing Yelena n°3's name to Bucky\n";
+	for (int i = 0; i != 5; ++i)
+		hoard[i].announce();
+	std::cout << "changing n°3's name to Bucky\n";
 	hoard[2].nameMe("Bucky");
 	for (int i = 0; i != 5; ++i)
-	{
 		hoard[i].announce();
-	}
 	delete[] hoard;
 }

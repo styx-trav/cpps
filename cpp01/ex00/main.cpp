@@ -7,5 +7,7 @@ int main()
 	Mark = newZombie("Mark");
 	Mark->announce();
 	delete Mark;
+	Zombie Elise;
+	Elise.announce();
 	randomChump("Eric");
 }
