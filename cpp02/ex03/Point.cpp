@@ -17,7 +17,7 @@ Point::Point(const float xs, const float ys) : x( Fixed(xs) ), y( Fixed (ys) )
 
 Point::Point(const Point &other) : x( Fixed(other.x) ), y( Fixed (other.y) )
 {
-	std::cout << "Point copy constructor called\n";
+	//std::cout << "Point copy constructor called\n";
 }
 
 Point& Point::operator=(const Point &other)

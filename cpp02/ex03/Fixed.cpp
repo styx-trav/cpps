@@ -5,30 +5,23 @@
 Fixed::Fixed()
 {
 	fixed_p = 0;
-	std::cout << "Fixed default constructor called\n";
 }
 
-Fixed::~Fixed()
-{
-	std::cout << "Fixed destructor called\n";
-}
+Fixed::~Fixed(){}
 
 Fixed::Fixed(int const num)
 {
-	std::cout << "Fixed int constructor called\n";
 	this->fixed_p = (int)((float)num * (1 << this->f_b));
 }
 
 Fixed::Fixed(float const number)
 {
-	std::cout << "Fixed float constructor called\n";
 	this->fixed_p = (int)roundf(number * (1 << this->f_b));
 }
 
 Fixed::Fixed(const Fixed &other)
 {
 	fixed_p = other.fixed_p;
-	std::cout << "Fixed copy constructor called\n";
 }
 
 //operator overloads-non members
@@ -44,10 +37,7 @@ std::ostream&  operator<<(std::ostream &out, Fixed const &fix)
 Fixed& Fixed::operator=(const Fixed &other)
 {
 	if (this != &other)
-	{
 		fixed_p = other.fixed_p;
-		std::cout << "Fixed assignment operator called\n";
-	}
 	return *this;
 }
 

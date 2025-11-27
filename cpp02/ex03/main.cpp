@@ -11,6 +11,12 @@ int main()
 	const Point a(15.5, -6.2);
 	const Point b(2.1, -1.2);
 	const Point c(5.6, 2.6);
-	const Point p(2.1, -1.2);
+	//5, 0 should be yes;
+	const Point p(5, 0);
+	// -5, 6 should be no;
+	const Point s(-5, 6);
+	//a vertice should also be no
+	const Point r(2.1, -1.2);
+	
 	std::cout << "is that point in the triangle ? answer : " << bsp(a, b, c, p) << std::endl;
 }

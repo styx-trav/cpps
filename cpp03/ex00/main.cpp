@@ -9,4 +9,15 @@ int main()
 	ClapTrap b("Bobby");
 	b.beRepaired(17);
 	b.takeDamage(18);
+	b.attack("Bob");
+	b.attack("Bob");
+	b.attack("Bob");
+	b.attack("Bob");
+	b.attack("Bob");
+	b.attack("Bob");
+	b.attack("Bob");
+	b.attack("Bob");
+	b.attack("Bob");
+	b.attack("Bob");
+	b.attack("Bob");
 }

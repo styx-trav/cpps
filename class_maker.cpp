@@ -15,7 +15,7 @@ int main(int argc, char **argv)
 	File << "#ifndef " << s << "\n# define " << s << "\n";
 	File << "# include <iostream>\n\n\n";
 	File << "class " << argv[1] << "\n";
-	File << "{\n\tprivate:\n\t\tstd::string = _name;\n\tpublic:\n\t\t";
+	File << "{\n\tprivate:\n\t\tstd::string _name;\n\tpublic:\n\t\t";
 	File << argv[1] << "();\n\t\t";
 	File << "~" << argv[1] << "();\n\t\t";
 	File << argv[1] << "(std::string &name);\n\t\t";
