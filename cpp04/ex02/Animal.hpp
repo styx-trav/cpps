@@ -13,10 +13,10 @@ class Animal
 		Animal(std::string name);
 		Animal(const Animal &other);
 		Animal &operator=(const Animal &other);
-		virtual void makeSound();
+		virtual void makeSound() const;
 		virtual void hasIdea(const std::string&) = 0;
-		virtual void readIdeas() = 0;
-		const std::string &getType();
+		virtual void readIdeas() const = 0;
+		const std::string &getType() const;
 };
 
 #endif

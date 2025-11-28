@@ -14,7 +14,7 @@ class Brain
 		Brain(const Brain &other);
 		Brain &operator=(const Brain &other);
 		void addIdea(const std::string &newidea);
-		void readIdeas();
+		void readIdeas() const;
 };
 
 #endif

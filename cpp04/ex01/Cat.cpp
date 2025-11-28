@@ -29,7 +29,7 @@ Cat& Cat::operator=(const Cat &other)
 	return *this;
 }
 
-void Cat::makeSound()
+void Cat::makeSound() const
 {
 	std::cout << type << " meows.\n";
 }
@@ -40,7 +40,7 @@ void Cat::hasIdea(const std::string &newidea)
 	brain->addIdea(newidea);
 }
 
-void Cat::readIdeas()
+void Cat::readIdeas() const
 {
 	brain->readIdeas();
 }

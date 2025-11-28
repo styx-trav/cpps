@@ -32,12 +32,12 @@ Animal& Animal::operator=(const Animal &other)
 	return *this;
 }
 
-void Animal::makeSound()
+void Animal::makeSound() const
 {
 	std::cout << type << " makes a sound.\n";
 }
 
-const std::string &Animal::getType()
+const std::string &Animal::getType() const
 {
 	return type;
 }

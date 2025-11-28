@@ -29,7 +29,7 @@ Dog& Dog::operator=(const Dog &other)
 	return *this;
 }
 
-void Dog::makeSound()
+void Dog::makeSound() const
 {
 	std::cout << type << " barks.\n";
 }
@@ -40,7 +40,7 @@ void Dog::hasIdea(const std::string &newidea)
 	brain->addIdea(newidea);
 }
 
-void Dog::readIdeas()
+void Dog::readIdeas() const
 {
 	brain->readIdeas();
 }

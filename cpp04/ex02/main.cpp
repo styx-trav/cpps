@@ -5,6 +5,7 @@ int main()
 {
 	{
 		std::cout << "Test 1 ------------------------------------------" << std::endl << std::endl;
+		//Animal b;
 		Animal *tab[6];
 		for(int i = 0; i != 6; i++)
 		{
@@ -37,6 +38,7 @@ int main()
 		std::cout << std::endl << std::endl;
 		b.readIdeas();
 		c.readIdeas();
+		std::cout << std::endl;
 	}
 	{
 		std::cout << std::endl << std::endl << std::endl;
@@ -53,5 +55,6 @@ int main()
 		std::cout << std::endl << std::endl;
 		b.readIdeas();
 		c.readIdeas();
+		std::cout << std::endl;
 	}
 }

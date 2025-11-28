@@ -41,7 +41,7 @@ void	Brain::addIdea(const std::string &newidea)
 	index++;
 }
 
-void	Brain::readIdeas()
+void	Brain::readIdeas() const
 {
 	for(int i = 0; i != index; i++)
 		std::cout << i << ": " << ideas[i] << std::endl;
