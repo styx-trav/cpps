@@ -1,6 +1,6 @@
 CC=c++
 FLAGS=-Wall -Wextra -Werror -std=c++98
-NAME=on_fire
+NAME=abstract
 SRC=main.cpp Animal.cpp Cat.cpp Dog.cpp Brain.cpp
 
 all: $(NAME)

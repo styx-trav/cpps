@@ -1,0 +1,20 @@
+still deciding, so lets see what is actually asked of us
+
+first an abstract class to build off of ::
+	AMateria, with ::
+		a non virtual getType("ice" or "cure");
+		a virtual clone (will return a pointer instance of the type its used from)
+		a virtual use (takes a ref to an ICharacter class obj and ice attacks, cure heals)
+
+then her two derived classes ::
+	Ice :: as seen above;
+	Cure :: as seen above;
+
+another abstract class ICharacter, with all virtuals (pure except dest)::
+		a getName;
+		an equip (in our inventory[4], filling the first empty slot found);
+		an unequip (inventory[index] unequipped, do not delete);
+		a use (inventory[index]->use(target));
+		!!during copy, delete Materias before replacing them (deep copies, also)
+
+
