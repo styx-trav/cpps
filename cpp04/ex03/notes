@@ -17,4 +17,21 @@ another abstract class ICharacter, with all virtuals (pure except dest)::
 		a use (inventory[index]->use(target));
 		!!during copy, delete Materias before replacing them (deep copies, also)
 
+theres sourceMateria, too, which can learn and then clone by using equip and clone from our two abstract/interface classes -- kind of a grimoire, ig
 
+alright, lets see what we can do with these ::
+first of all, obviously we add the takeDamage; beRepaired and attack from cpp03 so our spells can actually do stuff
+energy points are still a thing :: one per spell. spells can be used on oneself.
+death and fatigue work the same, too :: dead or fatigued can't do anything, can't raise the dead -- maybe a cocaine potion for energy boost ?
+attack points are also still a thing, they're a mod for the spells
+maybe med points too ? for healing spells like Cure
+and protection points, which go towards sparing you full attacks, like a Shield spell
+
+--> spec our characters into their dnd classes (cleric, warlock, wizard, fighter) ?? maybe just four characters and we adjust the stats from creation instead
+
+-->all these spell mods do imply sending these out as arguments into our spell's use function(target, att, def, med) so they can mod the consequences on top of their regular stats
+	-->do we need regular stats built into the spells class ? no need, i think we can just *10 a base character's stats
+
+maybe a monster Class ? they could also have spells and stats;
+
+tell a little story about our party stopping at a magic store and heading on their great adventure, facing down a monster. one of them dies and gifts the others the last of their spells. one by one, everyone falls to their demise, except our higher than high fighter who delivers the finishing blow and passes out, drained.

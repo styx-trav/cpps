@@ -23,7 +23,15 @@ Cure& Cure::operator=(const Cure &other)
 	return *this;
 }
 
-void Cure::use(ICharacter& target)
+void Cure::use(ICharacter& target, unsigned int att, unsigned int def, unsigned int med) const
 {
 	std::cout << "* heals " << target.getName() << "'s wounds *\n";
+	(void) att;
+	(void) def;
+	target.beRepaired(med * 10);
+}
+
+Cure* Cure::clone() const
+{
+	return (new Cure(*this));
 }

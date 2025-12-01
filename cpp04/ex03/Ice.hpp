@@ -10,8 +10,8 @@ class Ice : public AMateria
 		~Ice();
 		Ice(const Ice &other);
 		Ice &operator=(const Ice &other);
-		void use(ICharacter& target);
-		Ice* clone(const Ice &other) const;
+		void use(ICharacter& target, unsigned int att, unsigned int def, unsigned int med) const;
+		Ice* clone() const;
 };
 
 #endif
