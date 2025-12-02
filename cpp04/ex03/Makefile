@@ -3,7 +3,6 @@ FLAGS=-Wall -Wextra -Werror -std=c++98
 NAME=fullsend
 SRC=AMateria.cpp \
 Bite.cpp \
-Boost.cpp \
 Character.cpp \
 Cure.cpp \
 Ice.cpp \

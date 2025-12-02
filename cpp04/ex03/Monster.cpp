@@ -4,7 +4,6 @@ Monster::Monster() : Character()
 {
 	std::cout << "Monster default constructor called\n";
 	ep = 17;
-	hp = 100;
 }
 
 Monster::~Monster()
@@ -16,12 +15,12 @@ Monster::Monster(std::string name) : Character(name)
 {
 	std::cout << "Monster constructor called\n";
 	ep = 17;
-	hp = 100;
 }
 
 Monster::Monster(std::string name, unsigned int at, unsigned int me, unsigned int de) : Character(name, at, me, de)
 {
 	std::cout << "Monster constructor called\n";
+	ep = 17;
 }
 
 Monster::Monster(const Monster &other) : Character(other)

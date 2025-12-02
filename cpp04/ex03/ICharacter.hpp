@@ -16,7 +16,6 @@ class ICharacter
 		virtual void use(int idx, ICharacter& target) = 0;
 		virtual void takeDamage(unsigned int dam) = 0;
 		virtual void beRepaired(unsigned int heal) = 0;
-		virtual void eBoost(unsigned int boost) = 0;
 		virtual void beProtected(unsigned int protection) = 0;
 };
 

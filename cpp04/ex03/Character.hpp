@@ -27,7 +27,6 @@ class Character : public ICharacter
 		void use(int idx, ICharacter& target);
 		void takeDamage(unsigned int dam);
 		void beRepaired(unsigned int heal);
-		void eBoost(unsigned int boost);
 		void beProtected(unsigned int protection);
 };
 

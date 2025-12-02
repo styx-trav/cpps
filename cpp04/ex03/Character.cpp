@@ -3,7 +3,7 @@
 Character::Character() : ICharacter()
 {
 	std::cout << "Character default constructor called\n";
-	ep = 5;
+	ep = 4;
 	hp = 24;
 	_name = "name";
 	att = 0;
@@ -27,7 +27,7 @@ Character::Character(std::string name) : ICharacter()
 {
 	std::cout << "Character constructor called\n";
 	_name = name;
-	ep = 5;
+	ep = 4;
 	hp = 24;
 	att = 0;
 	def = 0;
@@ -43,7 +43,7 @@ Character::Character(std::string name, unsigned int at, unsigned int me, unsigne
 	att = at;
 	def = de;
 	med = me;
-	ep = 6;
+	ep = 4;
 	hp = 24;
 	for (int i = 0; i != 4; i++)
 		inventory[i] = NULL;
@@ -133,16 +133,16 @@ void Character::use(int idx, ICharacter &target)
 		return ;
 	if (!ep || (ep == 1 && hp < 5))
 	{
-		std::cout << _name << " is fatigued, and cannot use spells.\n";
+		std::cout << _name << " is fatigued, and cannot do anything.\n";
 		return ;
 	}
 	if (inventory[idx] == NULL)
 		std::cout << "no spell in this slot\n";
 	else
 	{
-		ep--;
+		this->ep--;
 		if (hp < 5)
-			ep--;
+			this->ep--;
 		std::cout << this->_name << " ";
 		(inventory[idx])->use(target, att, def, med);
 	}
@@ -157,10 +157,10 @@ void Character::takeDamage(unsigned int dam)
 	else
 		dam = dam - def;
 	std::cout << _name << " takes " << dam << " points of damage.\n";
-	if (def)
-		def--;
-	if (def)
-		def--;
+	if (def > 5)
+		def -= 5;
+	else
+		def = 0;
 	if (dam > hp)
 		hp = 0;
 	else
@@ -182,16 +182,6 @@ void Character::beRepaired(unsigned int heal)
 	}
 	hp = hp + heal;
 	std::cout << _name << " is healed for " << heal << ", and now has " << hp << "hp.\n";
-}
-
-void Character::eBoost(unsigned int boost)
-{
-	if (!hp)
-		return ;
-	ep = ep + boost;
-	if (hp > 1)
-		hp = hp / 2;
-	std::cout << _name << " gets an energy boost of " << boost << ". This comes with the drawback of cutting their health in half, bringing them down to " << hp << ".\n";
 }
 
 void Character::beProtected(unsigned int protection)
