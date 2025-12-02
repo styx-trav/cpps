@@ -32,11 +32,13 @@ int main()
 		a.hasIdea("you know what my human would love ? a dead mouse on their pillow ! i should go get that.");
 		std::cout << std::endl;
 		a.readIdeas();
+		std::cout << std::endl;
 		Cat b (a);
 		Cat c;
 		c = b;
 		std::cout << std::endl << std::endl;
 		b.readIdeas();
+		std::cout << std::endl;
 		c.readIdeas();
 		std::cout << std::endl;
 	}
@@ -49,11 +51,13 @@ int main()
 		a.hasIdea("no ! not the bath ! i'm sorry, i swear !");
 		std::cout << std::endl;
 		a.readIdeas();
+		std::cout << std::endl;
 		Dog b (a);
 		Dog c;
 		c = b;
 		std::cout << std::endl << std::endl;
 		b.readIdeas();
+		std::cout << std::endl;
 		c.readIdeas();
 		std::cout << std::endl;
 	}

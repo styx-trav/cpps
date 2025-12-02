@@ -12,7 +12,7 @@ Bite::~Bite()
 
 Bite::Bite(const Bite &other) : AMateria(other)
 {
-	type = other.getType();
+	types = other.getType();
 	std::cout << "Bite copy constructor called\n";
 }
 

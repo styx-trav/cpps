@@ -75,43 +75,86 @@ void destroy(t_node *head)
   }
 }
 
-t_node *make_chain(char *s)
+t_node *make_chain(char *s, int *i)
 {
-  int i = 1;
-  t_node *head;
-  t_node *item;
-  t_node *tmp;
-  if (isdigit(s[0]))
-    head = newnode(s[0] - '0', VAL);
-  item = head;
-  while (s[i])
-  {
-    if (isdigit(s[i]))
-    {
-      if (!item->l)
-        item->l = newnode(s[i] - '0', VAL);
-      else
-        item->r = newnode(s[i] - '0', VAL);
-      i++;
-    }
-    if (s[i] == '*')
-    {
-      tmp = item->r;
-      item->r = newnode(0, MULTI);
-      item = item->r;
-      item->l = tmp;
-    }
-    if (s[i] == '+')
-    {
-      tmp = head;
-      head = newnode(0, ADD);
-      item = head;
-      item->l = tmp;
-    }
-    if (s[i])
-     i++;
-  }
-  return head;
+	t_node *head = NULL;
+	t_node *item;
+	t_node *tmp;
+	int waiting = 0;
+	if (s[*i] == '(')
+	{
+		*i = *i + 1;
+		head = make_chain(s, i);
+		waiting = 1;
+	}
+	else
+	{
+		head = newnode(s[*i] - '0', VAL);
+		*i = *i + 1;
+	}
+	item = head;
+	while (s[*i])
+	{
+		if (isdigit(s[*i]))
+		{
+			if (!item->l)
+				item->l = newnode(s[*i] - '0', VAL);
+			else
+				item->r = newnode(s[*i] - '0', VAL);
+			*i = *i +1;
+			waiting = 0;
+		}
+		if (s[*i] == '*')
+		{
+			if (waiting)
+			{
+				tmp = head;
+				head = newnode(0, MULTI);
+				head->l = tmp;
+				item = head;
+				waiting = 0;
+			}
+			else
+			{
+				tmp = item->r;
+				item->r = newnode(0, MULTI);
+				item = item->r;
+				item->l = tmp;
+			}
+		}
+		if (s[*i] == '+')
+		{
+			tmp = head;
+			head = newnode(0, ADD);
+			item = head;
+			item->l = tmp;
+			waiting = 0;
+		}
+		if (s[*i] == '(')
+		{
+			*i = *i +1;
+			if (!item->l)
+			{
+				item->l = make_chain(s, i);
+				*i = *i - 1;
+				//item = item->l;
+			}
+			else
+			{
+				item->r = make_chain(s, i);
+				*i = *i - 1;
+				//item = item->r;
+			}
+		}
+		else if (s[*i] == ')')
+		{
+			*i = *i + 1;
+			return head;
+		}
+		if (s[*i])
+			*i = *i +1;
+	}
+	return head;
 }
 
 int calc(t_node *item)
@@ -121,11 +164,20 @@ int calc(t_node *item)
   switch(item->type)
   {
     case ADD:
+    {
+      printf("in add\n");
       return (calc(item->l) + calc(item->r));
+    }
     case MULTI:
+    {
+      printf("in mult\n");
       return (calc(item->l) * calc(item->r));
+    }
     default:
+    {
+      printf("in val %d\n", item->val);
       return item->val;
+    }
   }
 }
 
@@ -138,7 +190,8 @@ int main(int argc, char **argv)
     printf("something went wrong with the input\n");
     return 0;
   }
-  t_node *chain = make_chain(argv[1]);
+  int i = 0;
+  t_node *chain = make_chain(argv[1], &i);
   printf("%d\n", calc(chain));
   destroy(chain);
 }

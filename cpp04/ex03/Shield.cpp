@@ -12,7 +12,7 @@ Shield::~Shield()
 
 Shield::Shield(const Shield &other) : AMateria(other)
 {
-	type = other.getType();
+	types = other.getType();
 	std::cout << "Shield copy constructor called\n";
 }
 

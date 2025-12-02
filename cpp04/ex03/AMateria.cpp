@@ -10,29 +10,26 @@ AMateria::~AMateria()
 	std::cout << "AMateria destructor called\n";
 }
 
-AMateria::AMateria(std::string name)
+AMateria::AMateria(std::string const & type)
 {
 	std::cout << "AMateria constructor called\n";
-	type = name;
+	types = type;
 }
 
 AMateria::AMateria(const AMateria &other)
 {
-	type = other.type;
+	types = other.types;
 	std::cout << "AMateria copy constructor called\n";
 }
 
 AMateria& AMateria::operator=(const AMateria &other)
 {
 	if (this != &other)
-	{
-		type = other.type;
 		std::cout << "AMateria assignment operator called\n";
-	}
 	return *this;
 }
 
 const std::string &AMateria::getType() const
 {
-	return type;
+	return types;
 }

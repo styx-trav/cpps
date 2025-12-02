@@ -36,3 +36,32 @@ and into my switch case i get ::
 0rr: return 2
 
 yessssssssssssssss we got it, now just to figure out the parentheses (in the bus !)
+
+parentheses options ::
+
+we need different heads, i think ? or a recursive function or sthg;
+like the same function we already have, and then send the head to a in-parentheses function to do all the priority work over there, and then i get that head back to put on my left/right item
+
+testing testing
+
+6+9*(5+3)*2
+
+(6)
+(6, ADD, NULL)
+(6, ADD, 9)
+(6, ADD, (9, MULTI, NULL))
+(6, ADD, (9, MULTI, make_chain()))
+(6, ADD, (9, MULTI, 5))
+(6, ADD, (9, MULTI, (5, ADD, NULL)))
+(6, ADD, (9, MULTI, (5, ADD, 3)))
+(6, ADD, (9, MULTI, (5, ADD, 3)))
+(6, ADD, (9, MULTI, ((5, ADD, 3), MULTI, NULL))
+(6, ADD, (9, MULTI, ((5, ADD, 3), MULTI, 2))
+
+8*2*9+6 = 
+
+reality ::
+(6, ADD, (9, MULTI, ((5, ADD, 3), MULTI, 2)) !=
+(6, ADD, (9, MULTI, (5, ADD, (3, MULTI, 2)))
+
+

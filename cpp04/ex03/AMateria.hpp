@@ -8,11 +8,11 @@ class ICharacter;
 class AMateria
 {
 	protected:
-		std::string type;
+		std::string types;
 	public:
 		AMateria();
 		virtual ~AMateria() = 0;
-		AMateria(std::string name);
+		AMateria(std::string const & type);
 		AMateria(const AMateria &other);
 		AMateria &operator=(const AMateria &other);
 		const std::string &getType() const;

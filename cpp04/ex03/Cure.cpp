@@ -12,7 +12,7 @@ Cure::~Cure()
 
 Cure::Cure(const Cure &other) : AMateria(other)
 {
-	type = other.getType();
+	types = other.getType();
 	std::cout << "Cure copy constructor called\n";
 }
 

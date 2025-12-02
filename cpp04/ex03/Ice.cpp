@@ -12,7 +12,7 @@ Ice::~Ice()
 
 Ice::Ice(const Ice &other) : AMateria(other)
 {
-	type = other.getType();
+	types = other.getType();
 	std::cout << "Ice copy constructor called\n";
 }
 
