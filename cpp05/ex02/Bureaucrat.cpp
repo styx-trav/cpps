@@ -63,7 +63,7 @@ void Bureaucrat::demotion()
 	std::cout << _name << "'s new grade is " << grade << ".\n";
 }
 
-void Bureaucrat::signForm(Form &f)
+void Bureaucrat::signForm(AForm &f) const
 {
 	try
 	{
@@ -75,6 +75,19 @@ void Bureaucrat::signForm(Form &f)
 	{
 		std::cout << _name << " couldn't sign ";
 		std::cout << f.getName() << " because " << e.what();
+	}
+}
+
+void Bureaucrat::executeForm(AForm &f) const
+{
+	try
+	{
+		f.execute(*this);
+		std::cout << _name << " executed " << f.getName() << std::endl;
+	}
+	catch (std::exception &e)
+	{
+		std::cout << _name << " couldn't execute " << f.getName() << " because " << e.what();
 	}
 }
 

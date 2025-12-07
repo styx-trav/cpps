@@ -1,6 +1,6 @@
 #include "AForm.hpp"
 
-AForm::AForm() : _name("name"), gradeSign(1), gradeExec(1), GradeTooLowException(CustomException("this grade is too low.\n")), GradeTooHighException(CustomException("this grade is too high !\n")), isSigned(false)
+AForm::AForm() : _name("name"), gradeSign(1), gradeExec(1), GradeTooLowException(CustomException("this grade is too low.\n")), GradeTooHighException(CustomException("this grade is too high !\n")), NotSignedException(CustomException("this form is not signed yet !\n")), isSigned(false)
 {
 	std::cout << "AForm default constructor called\n";
 }
@@ -10,7 +10,7 @@ AForm::~AForm()
 	std::cout << "AForm destructor called\n";
 }
 
-AForm::AForm(const std::string &name, int sign, int exec) : _name(name), gradeSign(sign), gradeExec(exec), GradeTooLowException(CustomException("this grade is too low.\n")), GradeTooHighException(CustomException("this grade is too high !\n")), isSigned(false)
+AForm::AForm(const std::string &name, int sign, int exec) : _name(name), gradeSign(sign), gradeExec(exec), GradeTooLowException(CustomException("this grade is too low.\n")), GradeTooHighException(CustomException("this grade is too high !\n")), NotSignedException(CustomException("this form is not signed yet !\n")), isSigned(false)
 {
 	std::cout << "AForm constructor called\n";
 	if (sign < 1 || exec < 1)
@@ -19,7 +19,7 @@ AForm::AForm(const std::string &name, int sign, int exec) : _name(name), gradeSi
 		throw GradeTooLowException;
 }
 
-AForm::AForm(const AForm &other) : _name(other._name), gradeSign(other.gradeSign), gradeExec(other.gradeExec), GradeTooLowException(CustomException("this grade is too low.\n")), GradeTooHighException(CustomException("this grade is too high !\n")), isSigned(other.isSigned)
+AForm::AForm(const AForm &other) : _name(other._name), gradeSign(other.gradeSign), gradeExec(other.gradeExec), GradeTooLowException(CustomException("this grade is too low.\n")), GradeTooHighException(CustomException("this grade is too high !\n")), NotSignedException(CustomException("this form is not signed yet !\n")), isSigned(other.isSigned)
 {
 	std::cout << "AForm copy constructor called\n";
 }
@@ -60,4 +60,12 @@ std::ostream &operator<<(std::ostream &out, AForm &obj)
 	else
 		std::cout << "unsigned.\n";
 	return out;
+}
+
+void AForm::execute(Bureaucrat const & executor) const
+{
+	if (!isSigned)
+		throw NotSignedException;
+	if (executor.getGrade() > gradeExec)
+		throw GradeTooLowException;
 }

@@ -3,9 +3,9 @@
 # include <iostream>
 # include <string>
 # include "CustomException.hpp"
-# include "Form.hpp"
+# include "AForm.hpp"
 
-class Form;
+class AForm;
 
 class Bureaucrat
 {
@@ -26,7 +26,8 @@ class Bureaucrat
 		int getGrade() const;
 		void demotion();
 		void promotion();
-		void signForm(Form &f);
+		void signForm(AForm &f) const;
+		void executeForm(AForm &f) const;
 };
 
 std::ostream &operator<<(std::ostream &out, Bureaucrat &obj);

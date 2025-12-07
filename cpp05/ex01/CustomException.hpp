@@ -10,7 +10,7 @@ class CustomException : public std::out_of_range
 		CustomException();
 		CustomException(const CustomException &other);
 		CustomException &operator=(const CustomException &other);
-		~CustomException();
+		~CustomException() throw();
 		CustomException(const std::string &msg);
 };
 
