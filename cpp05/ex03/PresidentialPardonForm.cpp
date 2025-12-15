@@ -36,3 +36,8 @@ void PresidentialPardonForm::execute(Bureaucrat const & executor) const
 	}
 	catch (std::exception &e) {throw ;}
 }
+
+AForm *PresidentialPardonForm::clone(const std::string &target) const
+{
+	return new PresidentialPardonForm(target);
+}

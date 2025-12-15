@@ -15,10 +15,10 @@ int main(int argc, char **argv)
 	File << "#ifndef " << s << "\n# define " << s << "\n";
 	File << "# include <iostream>\n\n\n";
 	File << "class " << argv[1] << "\n";
-	File << "{\n\tprivate:\n\t\tstd::string _name;\n\tpublic:\n\t\t";
+	File << "{\n\tprivate:\n\t\tconst std::string _name;\n\tpublic:\n\t\t";
 	File << argv[1] << "();\n\t\t";
 	File << "~" << argv[1] << "();\n\t\t";
-	File << argv[1] << "(std::string &name);\n\t\t";
+	File << argv[1] << "(const std::string &name);\n\t\t";
 	File << argv[1] << "(const " << argv[1] << " &other);\n\t\t";
 	File << argv[1] << " &operator=(const " << argv[1] << " &other);\n";
 	File << "};\n\n#endif";
@@ -32,7 +32,7 @@ int main(int argc, char **argv)
 	File2 << "std::cout << \"" << argv[1] << " default constructor called\\n\";\n}";
 	File2 << "\n\n" << argv[1] << "::~" << argv[1] << "()\n{\n\t";
 	File2 << "std::cout << \"" << argv[1] << " destructor called\\n\";\n}\n\n";
-	File2 << argv[1] << "::" << argv[1] << "(std::string name)\n{\n\t";
+	File2 << argv[1] << "::" << argv[1] << "(const std::string &name)\n{\n\t";
 	File2 << "std::cout << \"" << argv[1] << " constructor called\\n\";\n\t";
 	File2 << "_name = name;\n}\n\n";
 	File2 << argv[1] << "::" << argv[1] << "(const " << argv[1] << " &other)\n{\n\t_name = other.name;\n\t";

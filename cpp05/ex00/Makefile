@@ -1,7 +1,7 @@
 CC=c++
 FLAGS=-Wall -Wextra -Werror -std=c++98
-NAME=28B
-SRC=main.cpp ShrubberyCreationForm.cpp PresidentialPardonForm.cpp RobotomyRequestForm.cpp AForm.cpp Bureaucrat.cpp CustomException.cpp
+NAME=whenIGrowUp
+SRC=main.cpp Bureaucrat.cpp CustomException.cpp
 
 all: $(NAME)
 

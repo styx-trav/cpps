@@ -2,7 +2,6 @@
 # define CUSTOMEXCEPTION_HPP
 # include <iostream>
 # include <bits/stdc++.h>
-# include <string>
 
 class CustomException : public std::out_of_range
 {

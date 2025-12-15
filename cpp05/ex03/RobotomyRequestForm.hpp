@@ -17,6 +17,7 @@ class RobotomyRequestForm : public AForm
 		RobotomyRequestForm(const RobotomyRequestForm &other);
 		RobotomyRequestForm &operator=(const RobotomyRequestForm &other);
 		void execute(Bureaucrat const & executor) const;
+		AForm *clone(const std::string &target) const;
 };
 
 #endif

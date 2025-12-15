@@ -41,3 +41,8 @@ void RobotomyRequestForm::execute(Bureaucrat const & executor) const
 	}
 	catch (std::exception &e) {throw ;}
 }
+
+AForm *RobotomyRequestForm::clone(const std::string &target) const
+{
+	return new RobotomyRequestForm(target);
+}

@@ -4,7 +4,7 @@ CustomException::CustomException() : std::out_of_range("this number is out of ra
 
 CustomException::~CustomException() throw() {}
 
-CustomException::CustomException(const CustomException &other) : out_of_range(other) {}
+CustomException::CustomException(const CustomException &other) : std::out_of_range(other) {}
 
 CustomException &CustomException::operator=(const CustomException &other) {if (&other != this) {std::cout << "assignment operator on custom exception\n";} return *this;}
 
