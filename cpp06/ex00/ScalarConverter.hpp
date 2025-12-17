@@ -9,8 +9,6 @@
 
 class ScalarConverter
 {
-	private:
-		const std::string _name;
 	public:
 		ScalarConverter();
 		virtual ~ScalarConverter() = 0;
