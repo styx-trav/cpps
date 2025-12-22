@@ -45,13 +45,13 @@ void Span::addNumber(int num)
 	full++;
 }
 
-void Span::print()
+void Span::print() const
 {
 	for (unsigned int i = 0; i != full; i++)
 		std::cout << (*arr)[i] << std::endl;
 }
 
-std::vector<int> Span::softCopy()
+std::vector<int> Span::softCopy() const
 {
 	std::vector<int> obj(full);
 	//im sure theres a partial copy in there we can use instead, but lets hardcode it for now;
@@ -61,7 +61,7 @@ std::vector<int> Span::softCopy()
 }
 
 //still not liking how lon and contrived this looks, but its whatever - it works; if better idea later will tweak
-unsigned int Span::shortestSpan()
+unsigned int Span::shortestSpan() const
 {
 	std::vector<int> obj = this->softCopy();
 	if (obj.size() < 2)
@@ -79,7 +79,7 @@ unsigned int Span::shortestSpan()
 	return res;
 }
 
-unsigned int Span::longestSpan()
+unsigned int Span::longestSpan() const
 {
 	std::vector<int> obj = this->softCopy();
 	if (obj.size() < 2)

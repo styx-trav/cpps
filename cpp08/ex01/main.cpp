@@ -43,12 +43,13 @@ int main()
 	b.addNumber(-2147483648);
 	b.addNumber(2147483647);
 	int mapi[] = {6, 5, 1, 78, 24, 57, 6};
-	b.append<int *>(&(mapi[0]), &(mapi[6]));
+	b.append<int *>(&(mapi[0]), &(mapi[6]), 6);
 	b.print();
 	try
 	{
 		std::cout << std::endl << "here the shortest span, lets see it :: " << b.shortestSpan() << std::endl << std::endl;
 		std::cout << std::endl << "here the longest span, lets see it :: " << b.longestSpan() << std::endl << std::endl;
+		b.append<int *>(&(mapi[0]), 6);
 	}
 	catch (std::exception &e)
 	{

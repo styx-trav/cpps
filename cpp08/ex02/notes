@@ -1,0 +1,13 @@
+//stack specific functions and others
+
+lists are fine we need ::
+
+empty(); ==> same;
+size(); ==> same;
+top() == last element; ==> back();
+push(); ==> push_back();
+pop(); ==> pop_back();
+
+parameters specs ::
+template <class T, class Container = std::deque<T> > class MutantStack
+{}
