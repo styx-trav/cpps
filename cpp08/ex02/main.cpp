@@ -20,6 +20,7 @@ int main()
   it++;
   it++;
   rit++;
+  //*rit += 7;
   std::cout << "and the third :: " << *it << " and one to last :: " << *rit << std::endl << std::endl;
   
   std::vector<std::string> cont;
@@ -31,5 +32,6 @@ int main()
   letsee3.print();
   MutantStack<std::string, std::vector<std::string> >::reverse_iterator ritt = letsee3.rbegin();
   ritt++;
+  *ritt += " and more";
   std::cout << "and one to last :: " << *ritt << std::endl << std::endl;
 }

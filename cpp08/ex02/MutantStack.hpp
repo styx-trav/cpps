@@ -46,11 +46,11 @@ template <class T, class Container = std::deque<T> > class MutantStack
     inline const_reverse_iterator rend() const {return arr.rend();};
     
     //stack-spec functions
-    unsigned int size() const {return arr.size();};
-    bool empty() const {return arr.empty();};
-    void push(T item) {arr.push_back(item);};
-    void pop() {arr.pop_back();};
-    T &top() {return arr.back();};
+    inline unsigned int size() const {return arr.size();};
+    inline bool empty() const {return arr.empty();};
+    inline void push(T item) {arr.push_back(item);};
+    inline void pop() {arr.pop_back();};
+    inline T &top() {return arr.back();};
     
     //added prints
     void print() {for (typename Container::iterator it = arr.begin(); it != arr.end(); it++) {std::cout << *it << ". ";} std::cout << std::endl;};
