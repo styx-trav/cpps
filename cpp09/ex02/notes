@@ -1,0 +1,13 @@
+omg omg, this is literally soooooo cool
+
+ok, so if i understand properly, it's a stacking in order of right to left unit of 10^x
+(example given here in 10³)
+
+->first, order into last digit piles :: 064 into 4th pile, 791 into 1st, etc.
+->second, going through 0-9th pile, order into mid digit piles:: 791 into 9th pile, 064 into 6th, etc.
+->third, order into first digit pile going through the same motions :: 064 into 1st, 791 into 7th, etc.
+
+using the mechanism of the literal power of ten (genius), you only need to grab the pile[num / the column wanted] and insert the number you're at
+
+again this is looking much like a stackable algorithm, which implies stackable containers (list, deque, vectors left) but not much more (except i guess, the speed arguments)
+maybe a 10-pile vector of stacks ? or just a pointer tab on stacks, ig, with changes only to the container type in stacks

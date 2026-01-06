@@ -1,0 +1,20 @@
+alright alright ::
+
+so, first parsing -> database, prep work;
+container choice : i think map ? like, string to float tab in neat little rows;
+check the input : correct dates, correct order, correct floats (0-1000);
+order them into the map : push_new_row("date_string", float value);
+ask me, ask me, ask me
+dude im literally begging please
+
+
+second parsing -> file acquisition, on site;
+same container choice, string to int;
+check the input : correct dates, correct ints (0-1000);
+
+
+
+matching info (on loop) :
+match date to best of ability (last under or equal date, if under first error massage);
+multiply our int to our float;
+display results; move on to the next line;

@@ -1,0 +1,3 @@
+reverse polish notation ::
+
+if its a number, push it into the stack, if its an operand, operate on the stack and push the result. now that's a stack if ive ever seen one, so any stackable container will do - list, vector, deque, etc. i like deque for this especially, mostly given the seemingly massive discrepancy between lists and vectors in the next exercise;
