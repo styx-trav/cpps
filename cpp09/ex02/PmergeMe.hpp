@@ -1,5 +1,5 @@
-#ifndef SORT_HPP
-# define SORT_HPP
+#ifndef PMERGEME_HPP
+# define PMERGEME_HPP
 # include <iostream>
 # include <sstream>
 # include <cmath>
