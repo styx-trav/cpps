@@ -10,11 +10,15 @@
 class ScalarConverter
 {
 	public:
-		ScalarConverter();
 		virtual ~ScalarConverter() = 0;
-		ScalarConverter(const ScalarConverter &other);
-		ScalarConverter &operator=(const ScalarConverter &other);
-		static void convert(const std::string &val);
+		static void convert(std::string val);
 };
+
+bool case_zero(const char *s);
+bool isint(std::string s);
+void disp_char(char a);
+void disp_int(std::string val);
+void disp_float(std::string val);
+void disp_double(std::string val);
 
 #endif

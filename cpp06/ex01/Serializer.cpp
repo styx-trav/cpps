@@ -20,14 +20,14 @@ Serializer& Serializer::operator=(const Serializer &other)
 
 uintptr_t Serializer::serialize(Data* ptr)
 {
-	void *item = (void *)ptr;
-	uintptr_t obj = (uintptr_t)item;
+	void *item = reinterpret_cast<void *>(ptr);
+	uintptr_t obj = reinterpret_cast<uintptr_t>(item);
 	return obj;
 }
 
 Data* Serializer::deserialize(uintptr_t raw)
 {
-	void *item = (void *)raw;
-	Data *obj = (Data *)item;
+	void *item = reinterpret_cast<void *>(raw);
+	Data *obj = reinterpret_cast<Data *>(item);
 	return obj;
 }
