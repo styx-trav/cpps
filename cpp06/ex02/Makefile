@@ -1,7 +1,7 @@
 CC=c++
 FLAGS=-Wall -Wextra -Werror -std=c++98
 NAME=identify
-SRC=main.cpp Base.cpp
+SRC=main.cpp Base.cpp base_utils.cpp
 
 all: $(NAME)
 

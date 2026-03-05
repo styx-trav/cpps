@@ -5,18 +5,7 @@ Serializer::Serializer()
 	std::cout << "Serializer default constructor called\n";
 }
 
-Serializer::Serializer(const Serializer &other)
-{
-	(void)other;
-	std::cout << "Serializer copy constructor called\n";
-}
-
-Serializer& Serializer::operator=(const Serializer &other)
-{
-	if (this != &other)
-		std::cout << "Serializer assignment operator called\n";
-	return *this;
-}
+Serializer::~Serializer() {}
 
 uintptr_t Serializer::serialize(Data* ptr)
 {

@@ -1,5 +1,9 @@
 #include "ScalarConverter.hpp"
 
+ScalarConverter::ScalarConverter() {}
+
+ScalarConverter::~ScalarConverter() {}
+
 bool isint(std::string s)
 {
 	bool neg = false;
