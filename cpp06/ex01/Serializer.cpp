@@ -5,6 +5,10 @@ Serializer::Serializer()
 	std::cout << "Serializer default constructor called\n";
 }
 
+Serializer::Serializer(const Serializer &other) {(void)other; }
+
+Serializer &Serializer::operator=(const Serializer &other) { if (&other == this) { std::cout << "assignment on same object !\n"; } return *this; }
+
 Serializer::~Serializer() {}
 
 uintptr_t Serializer::serialize(Data* ptr)

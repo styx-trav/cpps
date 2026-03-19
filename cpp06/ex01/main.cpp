@@ -8,7 +8,7 @@ int main()
 	
 	uintptr_t have = Serializer::serialize(ptr);
 	uintptr_t nothave = Serializer::serialize(notptr);
-	std::cout << "\nhere the serialized num of Jan: " << have << ", and of Jared: " << nothave << std::endl;
+	std::cout << "\nhere the serialized num of pointer 1: " << have << ", and of pointer 2: " << nothave << std::endl;
 	
 	ptr = Serializer::deserialize(have);
 	notptr = Serializer::deserialize(nothave);

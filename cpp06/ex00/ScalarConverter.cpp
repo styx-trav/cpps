@@ -2,42 +2,27 @@
 
 ScalarConverter::ScalarConverter() {}
 
+ScalarConverter::ScalarConverter(const ScalarConverter &other) {(void)other; }
+
+ScalarConverter &ScalarConverter::operator=(const ScalarConverter &other) { if (&other == this) { std::cout << "assignment on same object !\n"; } return *this; }
+
 ScalarConverter::~ScalarConverter() {}
 
-bool isint(std::string s)
+void ScalarConverter::convert(std::string val)
 {
-	bool neg = false;
-	if (s.at(0) == '-')
-	{
-		s.erase(s.begin());
-		neg = true;
-	}
-	while (!s.empty() && s.at(0) == '0')
-		s.erase(s.begin());
-	if (s.empty())
-		return true;
-	std::string::iterator it = s.begin();
-	while (it != s.end() && std::isdigit(*it))
-		it++;
-	if (it != s.end())
-		return false;
-	if (s.length() > 10)
-		return false;
-	if (s.length() == 10)
-	{
-		if (!neg && s.compare("2147483647") > 0)
-			return false;
-		if (neg && s.compare("2147483648") > 0)
-			return false;
-		return true;
-	}
-	return true;
+	std::cout << std::fixed;
+	std::cout.precision(1);
+	if (val.length() == 1 && !isdigit(val.at(0)))
+		disp_char(val.at(0));
+	else if (!case_zero(val.c_str()) && !disp_int(val))
+		disp_float(val);
 }
 
-void disp_int(std::string val)
+bool disp_int(std::string val)
 {
 	int s;
 	s = std::atoi(val.c_str());
+	if (!s) { return false; }
 	std::cout << "char : ";
 	if (CHAR_MIN <= s && s <= CHAR_MAX)
 	{
@@ -51,6 +36,7 @@ void disp_int(std::string val)
 	std::cout << "int : " << s << std::endl;
 	std::cout << "float : " << static_cast<float>(s) << "f\n";
 	std::cout << "double : " << static_cast<double>(s) << std::endl;
+	return true ;
 }
 
 void disp_char(char a)
@@ -63,16 +49,19 @@ void disp_char(char a)
 
 bool case_zero(const char *s)
 {
-	if (s[0] && s[0] != '0')
+	int i = 0;
+	while (s[i] == '+' || s[i] == '-') { i++; }
+	if (!s[i] || s[i] != '0')
 		return false;
-	int i = 1;
-	int dot = 0;
-	while ((s[i] == '0' || s[i] == '.') && dot < 2)
-	{
-		if (s[i] == '.')
-			dot++;
+	bool dot = false;
+	while ((s[i] == '0' || s[i] == '.')) {
+		if (s[i] == '.') {
+			if (dot) { break ; }
+			dot = true;
+		}
 		i++;
 	}
+	if (s[i] && isdigit(s[i])) { return false; }
 	std::cout << "char : Non displayable\n";
 	if (!s[i] && !dot)
 	{
@@ -82,7 +71,7 @@ bool case_zero(const char *s)
 		std::cout << "double : " << static_cast<double>(i) << "\n";
 		return true;
 	}
-	if (s[i] == 'f' && !s[i +1])
+	if (s[i] == 'f')
 	{
 		float f = 0.0;
 		std::cout << "int : " << static_cast<int>(f) << "\n";
@@ -90,15 +79,11 @@ bool case_zero(const char *s)
 		std::cout << "double : " << static_cast<double>(f) << "\n";
 		return true;
 	}
-	if (!s[i])
-	{
-		double f = 0.0;
-		std::cout << "int : " << static_cast<int>(f) << "\n";
-		std::cout << "float : " << static_cast<float>(f) << "f\n";
-		std::cout << "double : " << f << "\n";
-		return true;
-	}
-	return false;
+	double f = 0.0;
+	std::cout << "int : " << static_cast<int>(f) << "\n";
+	std::cout << "float : " << static_cast<float>(f) << "f\n";
+	std::cout << "double : " << f << "\n";
+	return true;
 }
 
 void disp_double(std::string val)
@@ -137,8 +122,6 @@ void disp_double(std::string val)
 
 void disp_float(std::string val)
 {
-	if (case_zero(val.c_str()))
-		return ;
 	if (*(val.rbegin()) != 'f')
 	{
 		disp_double(val);
@@ -170,25 +153,4 @@ void disp_float(std::string val)
 	std::cout << "float : ";
 	std::cout << n << "f\n";
 	std::cout << "double : " << static_cast<double>(n) << std::endl;
-}
-
-void ScalarConverter::convert(std::string val)
-{
-	std::cout << std::fixed;
-	std::cout.precision(1);
-	if (val.length() == 1)
-	{
-		char a = (val.c_str())[0];
-		if (isdigit(a))
-			disp_int(val);
-		else
-			disp_char(a);
-	}
-	else
-	{
-		if (isint(val))
-			disp_int(val);
-		else
-			disp_float(val);
-	}
 }

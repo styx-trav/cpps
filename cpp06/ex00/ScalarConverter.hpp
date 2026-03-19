@@ -11,15 +11,16 @@ class ScalarConverter
 {
 	private:
 		ScalarConverter();
+		ScalarConverter(const ScalarConverter &other);
 		~ScalarConverter();
 	public:
 		static void convert(std::string val);
+		ScalarConverter &operator=(const ScalarConverter &other);
 };
 
 bool case_zero(const char *s);
-bool isint(std::string s);
 void disp_char(char a);
-void disp_int(std::string val);
+bool disp_int(std::string val);
 void disp_float(std::string val);
 void disp_double(std::string val);
 
