@@ -18,9 +18,25 @@ void ScalarConverter::convert(std::string val)
 		disp_float(val);
 }
 
+bool is_int(std::string val)
+{
+	bool neg = (val.at(0) == '-');
+	if (val.at(0) == '+' || val.at(0) == '-') { val.erase(val.begin()); }
+	bool done = false;
+	for (std::string::iterator it = val.begin(); it != val.end(); it++) {
+		if (!done && !isdigit(*it)) { done = true; }
+		if (done) { it = val.erase(it); }
+	}
+	if (val.empty() || val.length() > 10) { return false; }
+	if (neg && val.compare("2147483648") > 0) { return false; }
+	if (!neg && val.compare("2147483647") > 0) { return false; }
+	return true;
+}
+
 bool disp_int(std::string val)
 {
 	int s;
+	if (!is_int(val)) { return false; }
 	s = std::atoi(val.c_str());
 	if (!s) { return false; }
 	std::cout << "char : ";
