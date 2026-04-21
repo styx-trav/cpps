@@ -43,6 +43,12 @@ template <class T> class Array
 			}
 			return *this;
 		};
+		const T &operator[](unsigned int i) const
+		{
+			if (i >= sizer)
+				throw std::exception();
+			return array[i];
+		};
 		T &operator[](unsigned int i)
 		{
 			if (i >= sizer)

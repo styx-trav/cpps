@@ -76,4 +76,9 @@ int main()
     obj.print();
     std::cout << std::endl;
   }
+  {
+  	const Array<int> obj(7);
+  	for (unsigned int i = 0; i != 7; i++) { std::cout << obj[i] << ", "; }
+  	std::cout << std::endl;
+  }
 }
