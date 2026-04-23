@@ -1,13 +1,91 @@
-omg omg, this is literally soooooo cool
+okkk
 
-ok, so if i understand properly, it's a stacking in order of right to left unit of 10^x
-(example given here in 10³)
+new version, correct pair + equation
 
-->first, order into last digit piles :: 064 into 4th pile, 791 into 1st, etc.
-->second, going through 0-9th pile, order into mid digit piles:: 791 into 9th pile, 064 into 6th, etc.
-->third, order into first digit pile going through the same motions :: 064 into 1st, 791 into 7th, etc.
+rounded off equation for the nth js number :: (2^(n+1) + (-1)^n) / 3
 
-using the mechanism of the literal power of ten (genius), you only need to grab the pile[num / the column wanted] and insert the number you're at
+implementation, first thoughts
+	container of pair of class {
+		unsigned int layer
+		container
+		unsigned int index
+		bool a;
+	}
+	a container of pair of containers
+		container<unsigned int> unit; //all elements, check .back() for comparative elements
+	list<pair<*container[2 ^layer], *conainer[2^layer]>>
+	+ a place to stock leftovers (list of pair<layer + container[2^layer]>)
 
-again this is looking much like a stackable algorithm, which implies stackable containers (list, deque, vectors left) but not much more (except i guess, the speed arguments)
-maybe a 10-pile vector of stacks ? or just a pointer tab on stacks, ig, with changes only to the container type in stacks
+implementation, phase one :
+	container of list : [4 57 8 6 44 2 0 81 10 7 3 1 42]
+	first sort : [4 57 6 8 2 44 0 81 7 10 1 3]
+	leftovers : <1, {42}>
+	first pairings : list<pair<container[1], container[1]>>
+		{ [4 57] [6 8] [2 44] [0 81] [7 10] [1 3]}
+	second sort : { [6 8] [4 57] [2 44] [0 81] [1 3] [7 10]}
+	second pairings : list<pair<[2], [2]>>
+		{ [[6 8] [4 57]], [[2 44] [0 81]], [[1 3] [7 10]] }
+	third sort : { [[6 8] [4 57]], [[2 44] [0 81]], [[1 3] [7 10]] }
+	leftovers : <3, {1, 3, 7, 0}>
+	third pairings : list<pair<[4], [4]>>
+		{ [[6 8 4 57] [2 44 0 81]] }
+
+implementation, phase two :
+	third init :
+		main : { [6 8 4 57], [2 44 0 81] }
+		pending : [1 3 7 10]
+	third sort : inserting.back() < prev.back()
+		insert front
+		new main { [[1 3] [7 10]], [[6 8] [4 57]], [[2 44] [0 81]] }
+	second init :
+		main : { [1 3] [7 10] [4 57] [0 81] }
+		pending : [6 8] [2 44]
+	second sort :
+		insert middle
+		new main : { [1 3] [7 10] [2 44] [4 57] [0 81] }
+		insert second
+		new main : { [1 3] [6 8] [7 10] [2 44] [4 57] [0 81] }
+	first init :
+		main : { 1 3 8 10 44 57 81 }
+		pending : 6 7 2 4 0
+	first sort :
+		insert middle
+		new main : { 1 3 7 8 10 44 57 81 }
+		insert middle
+		new main : { 1 3 6 7 8 10 44 57 81 }
+		insert third comp
+		new main : { 1 3 4 6 7 8 10 44 57 81 }
+		insert fourth comp
+		new main : { 1 2 3 4 6 7 8 10 44 57 81 }
+		insert fourth comp
+		new main : { 0 1 2 3 4 6 7 8 10 44 57 81 }
+
+
+comment #2:
+	maybe we just reinstantiate the list of pairs on every phase 2 recursive
+	phase one :	{
+			create list of pairs
+			sort at the same time, store leftovers in a container of containers
+			send list to next level
+			} rr
+	phase two :	{
+			grab list of pairs + leftovers from storage
+			pending list of containers is just the list of pairs
+				{
+				based on the js numbers, add all relevant As for nth run
+				binary search, boundary [.size() - 1] + insert relevant Bs
+					//here, find the right combination for [value]
+				} rr
+			add leftover if found, binary search + insert in whole list
+			make new list of pairs, lower size
+			send to below level
+			} rr
+
+successful phase one implementation
+	we'll check the lo.back().size() against it->first.size() for leftover
+		if needed we could also push_back() an empty list on every level
+		depending on optimization purposes (.size() v alloc+.empty())
+
+maybe switch to vectors instead of lists ? the [] / .at() will be useful for phase two implementation
+
+
