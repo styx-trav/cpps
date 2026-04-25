@@ -1,6 +1,7 @@
 #include <vector>
 #include <iostream>
 #include <cstring>
+#include <sstream>
 
 typedef std::vector<std::pair<std::vector<unsigned int>,std::vector<unsigned int> > > s_list;
 typedef std::vector<unsigned int> a_list;
@@ -53,7 +54,7 @@ s_list phase_one(s_list l, std::vector<a_list> &lo)
 }
 
 //first pass here, create first pair list
-s_list phase_one(std::vector<unsigned int> l, std::vector<std::vector<unsigned int> > &lo)
+s_list phase_one(std::vector<unsigned int> &l, std::vector<std::vector<unsigned int> > &lo)
 {
 	s_list res;
 	for (a_list::iterator it = l.begin(); it != l.end(); it++) {
@@ -148,24 +149,26 @@ void binary_insert(s_list &res, a_list &lo, unsigned int end)
 	unsigned int pos;
 	unsigned int i = 0;
 	while (true) {
-		pos = beg + (end - beg) /2 +1;
-		if (pos == 0) { std::cout << "error here :: for end " << end << ", beg " << beg << std::endl; return ; }
-		if (pos == res.size()) { std::cout << "pos at end " << pos << ", adding\n"; makePair(res, lo); return ; }
+		pos = beg + (end - beg) /2 + (end- beg) % 2;
+		if (beg == end) { std::cout << "!!!!! beg is end\n"; }
 		std::cout << "scouring " << beg << " to " << end << ", pos " << pos << std::endl;
 		unsigned int prev = res[pos -1].second.back();
+		if (pos == res.size()) {
+			if (cmp(prev, lo.back())) { makePair(res, lo); }
+			else { makePair(res, lo, pos -1); }
+			return ;
+		}
 		unsigned int next = res[pos].second.back();
 		std::cout << "comparing " << prev << " to " << lo.back() << " to " << next << std::endl;
-		if (i > 87) { return ; }
-		i++;
-		if (!cmp(prev, lo.back())) {
-			if (pos-1) { end = pos -1; }
-			else { makePair(res, lo, pos -1); return ; }
-		}
-		else if (!cmp(lo.back(), next)) {
+		if (!cmp(lo.back(), next)) {
 			if (pos != end) { beg = pos; }
 			else { makePair(res, lo, pos + 1) ; return ;}
 		}
-		else {  break ;}
+		else if (!cmp(prev, lo.back())) {
+			if (pos-1 && pos-1 != beg) { end = pos -1; }
+			else { makePair(res, lo, pos -1); return ; }
+		}
+		else { break ; }
 	}
 	makePair(res, lo, pos);
 }
@@ -204,7 +207,7 @@ s_list phase_two(s_list l, std::vector<a_list> &lo)
 		for (unsigned int i = l.size() -1; i >= prev; i--)
 			binary_insert(res, l[i].first, get_a_pos(res, l[i].second.back(), i - prev));
 	}
-	if (lo.back().size() == l.front().first.size()) {
+	if (!lo.empty() && lo.back().size() == l.front().first.size()) {
 		binary_insert(res, lo.back(), 0);
 		lo.erase(--lo.end());
 	}
@@ -224,15 +227,25 @@ int F(int n)
     return sum;
 }
 
-int main()
+void setup(std::string str, std::vector<unsigned int> &ref)
 {
+	std::stringstream s(str);
+	std::string current;
+	getline(s, current, '\n');
+	while (!s.eof() && !current.empty()) {
+		int n = std::atoi(current.c_str());
+		if (n < 0) { std::cerr << "negative number !\n"; throw std::exception(); }
+		getline(s, current, '\n');
+		ref.push_back(n);
+	}
+}
+
+int main(int argc, char **argv)
+{
+	if (argc != 2) { std::cerr << "proper usage : ./pMerge \"[list of positive numbers here]\"\n"; return 0; }
 	std::vector<unsigned int> nerf;
-	unsigned int ner[19] = {16, 14, 2, 5, 18, 17, 13, 4, 11, 1, 10, 8, 9, 12, 7, 3, 15, 19};
-	//{12, 8, 2, 6, 1, 10, 14, 3, 4, 11, 15, 13, 7, 18, 19, 9, 16, 17, 5};
-	//{3, 7, 11, 19, 13, 4, 15, 2, 12, 6, 14, 8, 18, 10, 17, 16, 1, 9, 5};
-	//{4, 57, 8, 6, 44, 2, 0, 81, 10, 7, 3, 1, 42, 75, 44, 11, 25, 98, 9};
-	for (int i = 0; i != 19; i++)
-		nerf.push_back(ner[i]);
+	try { setup(argv[1], nerf); }
+	catch (std::exception &e) { return 0; }
 	std::vector<std::vector<unsigned int> > leftovers;
 	s_list res = phase_one(nerf, leftovers);
 	int i = 1;
@@ -280,5 +293,6 @@ int main()
 		}
 		std::cout << "\n}\n";
 	}
-	std::cout << "show me max comparisons for 19 : " << F(19) << " v our amount " << comps << std::endl;
+	std::cout << "show me max comparisons for " << nerf.size() << " : " << F(nerf.size()) << " v our amount " << comps << std::endl;
+	return 0;
 }
