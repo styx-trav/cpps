@@ -1,5 +1,10 @@
 okkk
 
+todo ::
+	mult arguments and space separated (parsing, set_up)
+	smaller lists exception (0, 1)
+	mise en page (separate functions in two paragraphs (per container), correct output, working the clock angle for display (setup included ?)
+
 new version, correct pair + equation
 
 rounded off equation for the nth js number :: (2^(n+1) + (-1)^n) / 3
