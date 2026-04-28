@@ -6,20 +6,15 @@
 #include <cmath>
 #include <time.h>
 
-typedef std::vector<std::pair<std::vector<unsigned int>,std::vector<unsigned int> > > s_list;
-typedef std::vector<unsigned int> a_list;
+typedef std::deque<std::pair<std::deque<unsigned int>,std::deque<unsigned int> > > s_list;
+typedef std::deque<unsigned int> a_list;
 
-/*
-typedef std::deque<std::pair<std::deque<unsigned int>,std::deque<unsigned int> > > s_deq;
-typedef std::deque<unsigned int> a_deq;
-*/
-
-void print_res(s_list &res, std::vector<a_list> &leftovers);
+void print_res(s_list &res, std::deque<a_list> &leftovers);
 
 int comps = 0;
 
 //future regular pass here, testing for now so just one level
-s_list phase_one(s_list l, std::vector<a_list> &lo)
+s_list phase_one(s_list l, std::deque<a_list> &lo)
 {
 	if (l.size() < 2) { return l; } //approx
 	s_list res;
@@ -65,7 +60,7 @@ s_list phase_one(s_list l, std::vector<a_list> &lo)
 }
 
 //first pass here, create first pair list
-s_list phase_one(std::vector<unsigned int> &l, std::vector<std::vector<unsigned int> > &lo)
+s_list phase_one(std::deque<unsigned int> &l, std::deque<std::deque<unsigned int> > &lo)
 {
 	s_list res;
 	for (a_list::iterator it = l.begin(); it != l.end(); it++) {
@@ -168,7 +163,7 @@ unsigned int get_a_pos(s_list &res, unsigned int a)
 	return ++i;
 }
 
-s_list phase_two(s_list l, std::vector<a_list> &lo)
+s_list phase_two(s_list l, std::deque<a_list> &lo)
 {
 	s_list res;
 	//set up :: add b1 and a1 to the main
@@ -212,7 +207,7 @@ int F(int n)
     return sum;
 }
 
-void setup(std::string str, std::vector<unsigned int> &ref)
+void setup(std::string str, std::deque<unsigned int> &ref)
 {
 	std::stringstream s(str);
 	std::string current;
@@ -227,9 +222,9 @@ void setup(std::string str, std::vector<unsigned int> &ref)
 
 bool verify(s_list &res);
 
-void print_setup(std::vector<unsigned int> &nerf)
+void print_setup(std::deque<unsigned int> &nerf)
 {
-	for (std::vector<unsigned int>::iterator it = nerf.begin(); it != nerf.end(); it++)
+	for (std::deque<unsigned int>::iterator it = nerf.begin(); it != nerf.end(); it++)
 		std::cout << *it << ", ";
 	std::cout << std::endl;
 }
@@ -237,10 +232,10 @@ void print_setup(std::vector<unsigned int> &nerf)
 int main(int argc, char **argv)
 {
 	if (argc != 2) { std::cerr << "proper usage : ./pMerge \"[list of positive numbers here]\"\n"; return 0; }
-	std::vector<unsigned int> nerf;
+	std::deque<unsigned int> nerf;
 	try { setup(argv[1], nerf); }
 	catch (std::exception &e) { return 0; }
-	std::vector<std::vector<unsigned int> > leftovers;
+	std::deque<std::deque<unsigned int> > leftovers;
 	print_setup(nerf);
 	clock_t start = clock();
 	s_list res = phase_one(nerf, leftovers);
@@ -254,24 +249,24 @@ int main(int argc, char **argv)
 	return 0;
 }
 
-void print_res(s_list &res, std::vector<a_list> &leftovers)
+void print_res(s_list &res, std::deque<a_list> &leftovers)
 {
 	int i = 1;
 	for (s_list::iterator it = res.begin(); it != res.end(); it++) {
 		std::cout << "b" << i << " { ";
-		for (std::vector<unsigned int>::iterator itt = it->first.begin(); itt != it->first.end(); itt++)
+		for (std::deque<unsigned int>::iterator itt = it->first.begin(); itt != it->first.end(); itt++)
 			std::cout << *itt << ", ";
 		std::cout << "}, a" << i << " { ";
-		for (std::vector<unsigned int>::iterator itt = it->second.begin(); itt != it->second.end(); itt++)
+		for (std::deque<unsigned int>::iterator itt = it->second.begin(); itt != it->second.end(); itt++)
 			std::cout << *itt << ", ";
 		std::cout << "}\n";
 		i++;
 	}
 	if (!leftovers.empty()) {
 		std::cout << "leftovers : { ";
-		for (std::vector<std::vector<unsigned int> >::iterator it = leftovers.begin(); it != leftovers.end(); it++) {
+		for (std::deque<std::deque<unsigned int> >::iterator it = leftovers.begin(); it != leftovers.end(); it++) {
 			std::cout << "\n\t{ ";
-			for (std::vector<unsigned int>::iterator itt = it->begin(); itt != it->end(); itt++)
+			for (std::deque<unsigned int>::iterator itt = it->begin(); itt != it->end(); itt++)
 				std::cout << *itt << ", ";
 			std::cout << "}";
 		}
