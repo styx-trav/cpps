@@ -1,47 +1,33 @@
 #ifndef PMERGEME_HPP
 # define PMERGEME_HPP
+# include <vector>
+# include <deque>
 # include <iostream>
+# include <cstring>
 # include <sstream>
 # include <cmath>
+# include <time.h>
 
-unsigned int pwr(unsigned int num, unsigned int el);
-
-template <typename T> void setup(T *tab, std::string lm)
+template <class T> void setup_inloop(std::string str, T &ref)
 {
-	std::stringstream s(lm);
+	std::stringstream s(str);
 	std::string current;
-	while (!s.eof())
-	{
-		getline(s, current, ' ');
-		int at = atoi(current.c_str());
-		if (at < 0)
-			throw std::out_of_range("negative  number !\n");
-		tab->push_back(at);
+	while (!s.eof()) {
+		getline(s, current);
+		if (current.empty()) { continue ; }
+		int n = std::atoi(current.c_str());
+		if (n < 0) { std::cerr << "Error\nnegative number !\n"; throw std::exception(); }
+		ref.push_back(n);
 	}
 }
 
-template <typename T> void tab_print(T tab)
+template <class T> void setup(int argc, char **argv, T &ref)
 {
-	for (typename T::iterator it = tab.begin(); it != tab.end(); it++)
-		std::cout << *it << " ";
-}
-
-template <typename T> T *algo(T *tab, unsigned int pass, unsigned int end)
-{
-	T *newtab = new T[10];
-	for (int i = 0; i != 10; i++)
-	{
-		for (typename T::iterator it = tab[i].begin(); it != tab[i].end(); it++)
-		{
-			unsigned int ell = *it % pwr(10, pass+1) / pwr(10, pass);
-			newtab[ell].push_back(*it);
-		}
+	int i = 1;
+	while (i < argc) {
+		try { setup_inloop(argv[i], ref); i++; }
+		catch (std::exception &e) { throw ; }
 	}
-	delete[] tab;
-	if (pass == end)
-		return newtab;
-	else
-		return algo(newtab, pass + 1, end);
 }
 
 #endif
