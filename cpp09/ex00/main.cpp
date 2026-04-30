@@ -10,7 +10,7 @@
 std::map<std::string, float> *db_setup(std::string filename)
 {
 	std::ifstream Input(filename.c_str(), std::ios::in);
-	if (!Input)
+	if (!Input.is_open())
 		throw std::out_of_range("first database file could not be opened\n");
 	std::string date;
 	std::string value;
@@ -31,7 +31,7 @@ std::map<std::string, float> *db_setup(std::string filename)
 bool isdate(int year, int month, int day)
 {
 	//baseline
-	if (day > 31)
+	if (day < 0 || day > 31)
 		return false;
 	//bisextile years for february
 	if (month == 2)
@@ -59,19 +59,19 @@ void check_date(std::string date)
 {
 	std::stringstream s(date);
 	std::out_of_range ex(("bad input => " + date));
-	if (s.eof())
-		throw ex;
 	getline(s, date, '-');
+	if (date.empty())
+		throw ex;
 	int year = atoi(date.c_str());
-	if (s.eof())
-		throw ex;
 	getline(s, date, '-');
+	if (date.empty())
+		throw ex;
 	int month = atoi(date.c_str());
 	if (month < 1 || month > 12)
 		throw ex;
-	if (s.eof())
-		throw ex;
 	getline(s, date);
+	if (date.empty())
+		throw ex;
 	int day = atoi(date.c_str());
 	if (day < 1 || !isdate(year, month, day) || !s.eof())
 		throw ex;
@@ -92,8 +92,11 @@ float proxy_date(std::string date, std::map<std::string, float> *base)
 	float res = 0;
 	for (std::map<std::string, float>::iterator it = base->begin(); it != base->end(); it++)
 	{
-		if (date.compare(it->first) < 0)
+		if (date.compare(it->first) < 0) {
+			if (it == base->begin())
+				throw std::out_of_range("date is too old !");
 			return res;
+		}
 		res = it->second;
 	}
 	return res;
@@ -105,31 +108,37 @@ void rread(std::string l, std::map<std::string, float> *base)
 	std::string date;
 	std::string value;
 	float res;
-	if (s.eof())
+	if (s.eof() || l.empty())
 		return ;
 	getline(s, date, ' ');
 	getline(s, value, ' ');
+	if (value != "|") {
+		std::cerr << "Error : bad input => " << l << std::endl;
+		return ;
+	}
 	getline(s, value);
 	try
 	{
 		check_date(date);
 		res = check_float(value);
-		std::cout << date << " => " << res << " = ";
+		float prev = res;
 		if (base->count(date))
 			res *= (*base)[date];
 		else
 			res *= proxy_date(date, base);
-		std::cout << res << std::endl;
+		std::cout << date << " => " << prev << " = " << res << std::endl;
 	}
 	catch (std::exception &e) {std::cerr << "Error : " << e.what() << std::endl;}
 }
 
 int main(int ac, char **av)
 {
-	if (ac != 2)
+	if (ac != 2) {
+		std::cout << "Correct usage :: ./btc \"[input file]\"\n";
 		return 0;
+	}
 	std::ifstream Input(av[1]);
-	if (!Input)
+	if (!Input.is_open())
 	{
 		std::cerr << "argument file could not be opened !\n";
 		return 0;
@@ -137,7 +146,6 @@ int main(int ac, char **av)
 	try
 	{
 		std::map<std::string, float> *base = db_setup("data.csv");
-		std::cout << "attempting a read on my map" << std::endl;
 		std::string current;
 		getline(Input, current);
 		while (!Input.eof())
