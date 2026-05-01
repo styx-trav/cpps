@@ -7,7 +7,7 @@ static void setup_inloop(std::string str, a_vec &ref)
 	while (!s.eof()) {
 		getline(s, current);
 		if (current.empty()) { continue ; }
-		int n = std::atoi(current.c_str());
+		int n = atoi(current.c_str());
 		if (n < 0) { std::cerr << "Error\nnegative number !\n"; throw std::exception(); }
 		ref.push_back(n);
 	}
@@ -36,7 +36,7 @@ s_vec phase_one(a_vec &l, std::vector<a_vec> &lo)
 		}
 		a_vec tmp1;
 		a_vec tmp2;
-		comps++;
+		comps_add();
 		if (*it < *prev) {
 			tmp1.push_back(*it);
 			tmp2.push_back(*prev);
@@ -78,7 +78,7 @@ s_vec phase_one(s_vec l, std::vector<a_vec> &lo)
 			tmp2.push_back(*itt);
 		for (a_vec::iterator itt = it->second.begin(); itt != it->second.end(); itt++)
 			tmp2.push_back(*itt);
-		comps++;
+		comps_add();
 		if (it->second.back() < prev->second.back())
 			res.push_back(std::pair<a_vec, a_vec>(tmp2, tmp1));
 		else

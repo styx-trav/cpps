@@ -7,13 +7,13 @@ static void setup_inloop(std::string str, a_deq &ref)
 	while (!s.eof()) {
 		getline(s, current);
 		if (current.empty()) { continue ; }
-		int n = std::atoi(current.c_str());
+		int n = atoi(current.c_str());
 		if (n < 0) { std::cerr << "Error\nnegative number !\n"; throw std::exception(); }
 		ref.push_back(n);
 	}
 }
 
-void setup(int argc, char **argv, a_deq &ref) {
+void setup_deq(int argc, char **argv, a_deq &ref) {
 	int i = 1;
 	while (i < argc) {
 		try { setup_inloop(argv[i], ref); i++; }
@@ -22,7 +22,7 @@ void setup(int argc, char **argv, a_deq &ref) {
 }
 
 //create first pair list
-s_deq phase_one(a_deq &l, std::deque<a_deq> &lo)
+s_deq phase_one_deq(a_deq &l, std::deque<a_deq> &lo)
 {
 	s_deq res;
 	for (a_deq::iterator it = l.begin(); it != l.end(); it++) {
@@ -32,11 +32,11 @@ s_deq phase_one(a_deq &l, std::deque<a_deq> &lo)
 			a_deq tmp;
 			tmp.push_back(*prev);
 			lo.push_back(tmp);
-			return phase_one(res, lo);
+			return phase_one_deq(res, lo);
 		}
 		a_deq tmp1;
 		a_deq tmp2;
-		comps++;
+		comps_add();
 		if (*it < *prev) {
 			tmp1.push_back(*it);
 			tmp2.push_back(*prev);
@@ -47,11 +47,11 @@ s_deq phase_one(a_deq &l, std::deque<a_deq> &lo)
 		}
 		res.push_back(std::pair<a_deq, a_deq>(tmp1, tmp2));
 	}
-	return phase_one(res, lo);
+	return phase_one_deq(res, lo);
 }
 
 //regular recursive first phase
-s_deq phase_one(s_deq l, std::deque<a_deq> &lo)
+s_deq phase_one_deq(s_deq l, std::deque<a_deq> &lo)
 {
 	if (l.size() < 2) { return l; }
 	s_deq res;
@@ -66,7 +66,7 @@ s_deq phase_one(s_deq l, std::deque<a_deq> &lo)
 			for (a_deq::iterator itt = prev->second.begin(); itt != prev->second.end(); itt++)
 				tmp.push_back(*itt);
 			lo.push_back(tmp);
-			return phase_one(res, lo);
+			return phase_one_deq(res, lo);
 		}
 		a_deq tmp1;
 		a_deq tmp2;
@@ -78,21 +78,21 @@ s_deq phase_one(s_deq l, std::deque<a_deq> &lo)
 			tmp2.push_back(*itt);
 		for (a_deq::iterator itt = it->second.begin(); itt != it->second.end(); itt++)
 			tmp2.push_back(*itt);
-		comps++;
+		comps_add();
 		if (it->second.back() < prev->second.back())
 			res.push_back(std::pair<a_deq, a_deq>(tmp2, tmp1));
 		else
 			res.push_back(std::pair<a_deq, a_deq>(tmp1, tmp2));
 	}
-	return phase_one(res, lo);
+	return phase_one_deq(res, lo);
 }
 
 s_deq phase_two(s_deq l, std::deque<a_deq> &lo)
 {
 	s_deq res;
 	//set up :: add b1 and a1 to the main
-	makePair(res, l.begin()->first);
-	makePair(res, l.begin()->second);
+	makePair_deq(res, l.begin()->first);
+	makePair_deq(res, l.begin()->second);
 	//setup over, next part only happens if l.size() > 1
 	unsigned int n = 1;
 	unsigned int js;
@@ -100,19 +100,19 @@ s_deq phase_two(s_deq l, std::deque<a_deq> &lo)
 	while ((js = get_js(n)) <= l.size()) {
 		n++;
 		for (unsigned int i = prev; i != js; i++)
-			makePair(res, l[i].second);
+			makePair_deq(res, l[i].second);
 		for (unsigned int i = js -1; i >= prev; i--)
-			binary_insert(res, l[i].first, get_a_pos(res, (js - i)));
+			binary_insert_deq(res, l[i].first, get_a_pos_deq(res, (js - i)));
 		prev = js;
 	}
 	if (prev != l.size()) {
 		for (unsigned int i = prev; i != l.size(); i++)
-			makePair(res, l[i].second);
+			makePair_deq(res, l[i].second);
 		for (unsigned int i = l.size() -1; i >= prev; i--)
-			binary_insert(res, l[i].first, get_a_pos(res, (l.size() - i)));
+			binary_insert_deq(res, l[i].first, get_a_pos_deq(res, (l.size() - i)));
 	}
 	if (!lo.empty() && lo.back().size() == l.front().first.size()) {
-		binary_insert(res, lo.back(), 0);
+		binary_insert_deq(res, lo.back(), 0);
 		lo.erase(--lo.end());
 	}
 	if (!(res.front().first.empty())) { return phase_two(res, lo); }

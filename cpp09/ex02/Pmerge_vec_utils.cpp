@@ -1,7 +1,5 @@
 #include "PmergeMe.hpp"
 
-bool cmp(unsigned int b, unsigned int a) { comps++; return (b <= a); }
-
 unsigned int get_a_pos(s_vec &res, unsigned int max) { return (res.size() - max); }
 
 void binary_insert(s_vec &res, a_vec &lo, unsigned int end)
@@ -52,4 +50,10 @@ void makePair(s_vec &to_add, a_vec &add, unsigned int index)
 		n++;
 	}
 	to_add.insert((to_add.begin() + index), std::pair<a_vec, a_vec>(tmp1, tmp2));
+}
+
+void get_res(s_vec &res, a_vec &nerf)
+{
+	for (s_vec::iterator it = res.begin(); it != res.end(); it++)
+		nerf.push_back(it->second.back());
 }

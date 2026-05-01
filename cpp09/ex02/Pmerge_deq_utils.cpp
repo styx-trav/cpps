@@ -1,8 +1,8 @@
 #include "PmergeMe.hpp"
 
-unsigned int get_a_pos(s_deq &res, unsigned int max) { return (res.size() - max); }
+unsigned int get_a_pos_deq(s_deq &res, unsigned int max) { return (res.size() - max); }
 
-void binary_insert(s_deq &res, a_deq &lo, unsigned int end)
+void binary_insert_deq(s_deq &res, a_deq &lo, unsigned int end)
 {
 	if (!end) { end = res.size(); }
 	unsigned int beg = 0;
@@ -16,10 +16,10 @@ void binary_insert(s_deq &res, a_deq &lo, unsigned int end)
 		else { end = pos; }
 		
 	}
-	makePair(res, lo, pos);
+	makePair_deq(res, lo, pos);
 }
 
-void makePair(s_deq &to_add, a_deq &add)
+void makePair_deq(s_deq &to_add, a_deq &add)
 {
 	a_deq tmp1;
 	a_deq tmp2;
@@ -35,8 +35,8 @@ void makePair(s_deq &to_add, a_deq &add)
 	to_add.push_back(std::pair<a_deq, a_deq>(tmp1, tmp2));
 }
 
-//makePair, but inserted
-void makePair(s_deq &to_add, a_deq &add, unsigned int index)
+//makePair_deq, but inserted
+void makePair_deq(s_deq &to_add, a_deq &add, unsigned int index)
 {
 	a_deq tmp1;
 	a_deq tmp2;
@@ -50,4 +50,10 @@ void makePair(s_deq &to_add, a_deq &add, unsigned int index)
 		n++;
 	}
 	to_add.insert((to_add.begin() + index), std::pair<a_deq, a_deq>(tmp1, tmp2));
+}
+
+void get_res_deq(s_deq &res, a_deq &nerf)
+{
+	for (s_deq::iterator it = res.begin(); it != res.end(); it++)
+		nerf.push_back(it->second.back());
 }
