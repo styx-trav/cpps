@@ -7,6 +7,8 @@ todo ::
 	mult arguments and space separated (parsing, set_up)
 	smaller lists exception (0, 1)
 	mise en page (separate functions in two paragraphs (per container), correct output, working the clock angle for display (setup included ?)
+	maybe phase_one can automatically call phase_two instead of returning l ? it feels odd to have two attached recursive that dont call each other
+	compilation, troubleshooting etc.
 
 new version, correct pair + equation
 

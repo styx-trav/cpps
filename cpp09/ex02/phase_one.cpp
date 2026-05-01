@@ -14,6 +14,9 @@ typedef std::vector<std::pair<a_vec , a_vec> > s_vec;
 typedef std::deque<unsigned int> a_deq;
 typedef std::deque<std::pair<a_deq , a_deq> > s_deq;
 
+//clock here
+//setup ::
+void setup(int argc, char **argv, a_vec &ref);
 //full algorithm, in order ::
 s_vec phase_one(a_vec &l, std::vector<a_vec> &lo); //very first pass, with a_vec nerf
 s_vec phase_one(s_vec l, std::vector<a_vec> &lo); //every subsequent pass, with previous s_vec
@@ -22,7 +25,11 @@ s_vec phase_two(s_vec l, std::vector<a_vec> &lo); //phase two, starting with the
 unsigned int get_a_pos(s_vec &res, unsigned int max); //slight optimisation on the "seeking a_pos"
 void binary_insert(s_vec &res, a_vec &lo, unsigned int end); //binary insert algo portion
 bool cmp(unsigned int b, unsigned int a); //comparison + add to comps
-
+//final round for a_vec return
+void get_res(s_vec &res, a_vec &nerf);
+//clock here
+//printing func (before, after)
+void print_setup(a_vec &nerf);
 
 void print_res(s_vec &res, std::vector<a_vec> &leftovers);
 
@@ -31,7 +38,7 @@ int comps = 0;
 //future regular pass here, testing for now so just one level
 s_vec phase_one(s_vec l, std::vector<a_vec> &lo)
 {
-	if (l.size() < 2) { return l; } //approx
+	if (l.size() < 2) { return l; }
 	s_vec res;
 	for (s_vec::iterator it = l.begin(); it != l.end(); it++)
 	{
@@ -48,28 +55,19 @@ s_vec phase_one(s_vec l, std::vector<a_vec> &lo)
 		}
 		a_vec tmp1;
 		a_vec tmp2;
+		for (a_vec::iterator itt = prev->first.begin(); itt != prev->first.end(); itt++)
+			tmp1.push_back(*itt);
+		for (a_vec::iterator itt = prev->second.begin(); itt != prev->second.end(); itt++)
+			tmp1.push_back(*itt);
+		for (a_vec::iterator itt = it->first.begin(); itt != it->first.end(); itt++)
+			tmp2.push_back(*itt);
+		for (a_vec::iterator itt = it->second.begin(); itt != it->second.end(); itt++)
+			tmp2.push_back(*itt);
 		comps++;
-		if (it->second.back() < prev->second.back()) {
-			for (a_vec::iterator itt = prev->first.begin(); itt != prev->first.end(); itt++)
-				tmp2.push_back(*itt);
-			for (a_vec::iterator itt = prev->second.begin(); itt != prev->second.end(); itt++)
-				tmp2.push_back(*itt);
-			for (a_vec::iterator itt = it->first.begin(); itt != it->first.end(); itt++)
-				tmp1.push_back(*itt);
-			for (a_vec::iterator itt = it->second.begin(); itt != it->second.end(); itt++)
-				tmp1.push_back(*itt);
-		}
-		else {
-			for (a_vec::iterator itt = prev->first.begin(); itt != prev->first.end(); itt++)
-				tmp1.push_back(*itt);
-			for (a_vec::iterator itt = prev->second.begin(); itt != prev->second.end(); itt++)
-				tmp1.push_back(*itt);
-			for (a_vec::iterator itt = it->first.begin(); itt != it->first.end(); itt++)
-				tmp2.push_back(*itt);
-			for (a_vec::iterator itt = it->second.begin(); itt != it->second.end(); itt++)
-				tmp2.push_back(*itt);
-		}
-		res.push_back(std::pair<a_vec, a_vec>(tmp1, tmp2));
+		if (it->second.back() < prev->second.back())
+			res.push_back(std::pair<a_vec, a_vec>(tmp2, tmp1));
+		else
+			res.push_back(std::pair<a_vec, a_vec>(tmp1, tmp2));
 	}
 	return phase_one(res, lo);
 }
@@ -111,14 +109,10 @@ void makePair(s_vec &to_add, a_vec &add)
 	unsigned int n = 0;
 	unsigned int size = add.size();
 	for (a_vec::iterator it = add.begin(); it != add.end(); it++) {
-		switch (n < size / 2) {
-			case true :
-				tmp1.push_back(*it);
-				break ;
-			default :
-				tmp2.push_back(*it);
-				break ;
-		}
+		if (n < size / 2)
+			tmp1.push_back(*it);
+		else
+			tmp2.push_back(*it);
 		n++;
 	}
 	to_add.push_back(std::pair<a_vec, a_vec>(tmp1, tmp2));
@@ -132,14 +126,10 @@ void makePair(s_vec &to_add, a_vec &add, unsigned int index)
 	unsigned int n = 0;
 	unsigned int size = add.size();
 	for (a_vec::iterator it = add.begin(); it != add.end(); it++) {
-		switch (n < size / 2) {
-			case true :
-				tmp1.push_back(*it);
-				break ;
-			default :
-				tmp2.push_back(*it);
-				break ;
-		}
+		if (n < size / 2)
+			tmp1.push_back(*it);
+		else
+			tmp2.push_back(*it);
 		n++;
 	}
 	to_add.insert((to_add.begin() + index), std::pair<a_vec, a_vec>(tmp1, tmp2));
@@ -219,7 +209,7 @@ int F(int n)
     return sum;
 }
 
-void setup_inloop(std::string str, std::vector<unsigned int> &ref)
+void setup_inloop(std::string str, a_vec &ref)
 {
 	std::stringstream s(str);
 	std::string current;

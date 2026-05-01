@@ -1,7 +1,7 @@
 CC=c++
 FLAGS=-Wall -Wextra -Werror -std=c++98
 NAME=PmergeMe
-SRC=main.cpp PmergeMe.cpp
+SRC=main.cpp PmergeMe.cpp Pmerge_vec.cpp Pmerge_vec_utils.cpp Pmerge_deq.cpp Pmerge_deq_utils.cpp
 
 all: $(NAME)
 
