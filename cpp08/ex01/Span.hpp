@@ -29,7 +29,7 @@ class Span
 			for (T it = begin; it != end; it++)
 			{
 				if (r == sizer)
-					throw std::out_of_range("this range is too big to add to this span !\n");
+					throw std::out_of_range("this range is too big to fully add to this span !\n");
 				(*arr)[r] = *it;
 				r++;
 			}
@@ -42,8 +42,6 @@ class Span
 			unsigned int r = full;
 			for (T it = begin; it != begin + size; it++)
 			{
-				if (r == sizer)
-					throw std::out_of_range("this range is too big to add to this span ! liar.\n");
 				(*arr)[r] = *it;
 				r++;
 			}

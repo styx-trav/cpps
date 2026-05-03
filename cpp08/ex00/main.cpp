@@ -14,12 +14,13 @@ int main()
     obj.at(5) = 4;
     //{5, 7, 4, 6, 5, 4};
     //finding 4;
+    std::cout << "looking for "4" in list {5 7 4 6 5 4} : ";
     try
     {
       if (&(easyfind<std::vector<int> >(obj, 11)) == &(obj.at(2)))
         std::cout << "found it !\n";
       else
-        std::cout << "something went wrong !\n";
+        std::cout << "wrong reference returned !\n";
     }
     catch (std::exception &e)
     {
@@ -32,15 +33,13 @@ int main()
     obj.push_back(6);
     obj.push_back(4);
     obj.push_back(6);
-    obj.push_back(7);
-    //{5, 6, 4, 6, 7};
+    obj.push_back(6);
+    //{5, 6, 4, 6, 6};
     //finding 7;
+    std::cout << "looking for "7" in list {5 6 4 6 6} : ";
     try
     {
-      if (&(easyfind<std::deque<int> >(obj, 7)) == &(obj.back()))
-        std::cout << "found it !\n";
-      else
-        std::cout << "something went wrong !\n";
+      std::cout << easyfind<std::deque<int> >(obj, 7) << "returned !\n";
     }
     catch (std::exception &e)
     {
@@ -52,16 +51,17 @@ int main()
     obj.push_back(5);
     obj.push_back(6);
     obj.push_back(4);
-    obj.push_back(6);
+    obj.push_back(5);
     obj.push_back(7);
-    //{5, 6, 4, 6, 7};
+    //{5, 6, 4, 5, 7};
     //finding 5;
+    std::cout << "looking for "5" in list {5 6 4 6 5 7} : ";
     try
     {
       if (&(easyfind<std::list<int> >(obj, 17)) == &(obj.front()))
         std::cout << "found it !\n";
       else
-        std::cout << "something went wrong !\n";
+        std::cout << "wrong reference returned !\n";
     }
     catch (std::exception &e)
     {
