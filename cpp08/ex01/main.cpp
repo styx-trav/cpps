@@ -37,6 +37,16 @@ int main(int argc, char **argv)
 		catch (std::exception &e) { std::cout << e.what(); }
 		std::cout << std::endl << std::endl;
 		std::cout << "-----------------------------------------------------------------------\n";
+		std::cout << "same tests on a const copy of this object\n";
+		Span c(a);
+		c.print();
+		try {
+			std::cout << std::endl << "here the shortest span, lets see it :: " << c.shortestSpan() << std::endl;
+			std::cout << std::endl << "here the longest span, lets see it :: " << c.longestSpan() << std::endl;
+		}
+		catch (std::exception &e) { std::cout << e.what(); }
+		std::cout << std::endl << std::endl;
+		std::cout << "-----------------------------------------------------------------------\n";
 		Span b(8);
 		try { b = a; }
 		catch (std::exception &e) { std::cout << e.what(); }
