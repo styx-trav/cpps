@@ -1,9 +1,7 @@
 #include "Span.hpp"
 
-int main()
+int main(int argc, char **argv)
 {
-	//these tests are sparse and bare bones at best, here the outline for their better halves ::
-	//we'll need :: huge amount of numbers (10000 min recommended amount); testing multiple appends;
 	{
 		std::cout << "-----------------------------------------------------------\n";
 		std::cout << "testing shortest and longest spans on empty Span\n";
@@ -72,5 +70,19 @@ int main()
 		e.print();
 		std::cout << std::endl << std::endl;
 	}
+	if (argc > 1)
+	{
+		//usage for custom sequences :: ./spans `shuf 1-10000 | tr "\n" " "`
+		std::cout << "----------------------------------------------------------------------\n";
+		std::cout << "testing your range of numbers !\n";
+		Span e(argc -1);
+		try {
+			for (int i = 1; i != argc; i++)
+				e.addNumber(atoi(argv[i]));
+			std::cout << std::endl << "here the shortest span, lets see it :: " << e.shortestSpan() << std::endl;
+			std::cout << std::endl << "here the longest span, lets see it :: " << e.longestSpan() << std::endl;
+			e.print();
+		}
+		catch (std::exception &e) { std::cout << e.what(); }
+	}
 }
-	

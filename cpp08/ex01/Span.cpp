@@ -76,6 +76,7 @@ unsigned int Span::shortestSpan() const
 			res = ned;
 		else if (res > ned)
 			res = ned;
+		if (!res) { return res; }
 	}
 	return res;
 }
