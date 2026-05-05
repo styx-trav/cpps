@@ -82,7 +82,7 @@ int main(int argc, char **argv)
 	}
 	if (argc > 1)
 	{
-		//usage for custom sequences :: ./spans `shuf 1-10000 | tr "\n" " "`
+		//usage for custom sequences, example :: ./spans `shuf 1-10000 | tr "\n" " "`
 		std::cout << "----------------------------------------------------------------------\n";
 		std::cout << "testing your range of numbers !\n";
 		Span e(argc -1);

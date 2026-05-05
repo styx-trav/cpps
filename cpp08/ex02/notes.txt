@@ -1,3 +1,13 @@
 todo ::
 
-this needs some padding on the testing front, maybe switch up the containers ? and ofc a side by side comparison using a list as so gently advised in subject
+iterators, testing
+	subject states test code should output the same v list
+	as in : { 3 5 737 }
+	goes :: begin->end { 3, 5, 737 }
+	and the opposite
+	
+	and for our stack :: print { 737 5 3 }
+	goes :: begin->end { 3, 5, 737 }
+
+ok, seems good
+	updating print to avoid confusion

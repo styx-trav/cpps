@@ -51,10 +51,10 @@ template <class T, class Container = std::deque<T> > class MutantStack
     inline void push(T item) {arr.push_back(item);};
     inline void pop() {arr.pop_back();};
     inline T &top() {return arr.back();};
+    inline const T &top() const {return arr.back();};
     
     //added prints
-    void print() {for (typename Container::iterator it = arr.begin(); it != arr.end(); it++) {std::cout << *it << ". ";} std::cout << std::endl;};
-    void print() const {for (typename Container::const_iterator it = arr.begin(); it != arr.end(); it++) {std::cout << *it << ". ";} std::cout << std::endl;};
+    void print() const {for (typename Container::const_iterator it = arr.begin(); it != arr.end(); it++) {std::cout << *it << ", ";} std::cout << std::endl;};
 };
 
 #endif

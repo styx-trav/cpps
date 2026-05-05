@@ -29,7 +29,7 @@ int main()
     const std::vector<int> obj_cpy(obj);
     //{5, 7, 4, 6, 5, 4};
     //finding 4;
-    std::cout << "looking for \"4\" in vector copy {5 7 4 6 5 4} : ";
+    std::cout << "looking for \"4\" in const vector copy {5 7 4 6 5 4} : ";
     try
     {
       if (&(easyfind<std::vector<int> >(obj_cpy, 4)) == &(obj_cpy.at(2)))
