@@ -40,7 +40,7 @@ bool isdate(int year, int month, int day)
 			return false;
 		if (day == 29)
 		{
-			if ((year % 4) || ((year % 100) && !(year % 400)))
+			if ((year % 4) || (!(year % 100) && (year % 400)))
 				return false;
 			else
 				return true;
