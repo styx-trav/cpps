@@ -15,7 +15,7 @@ int F(int n)
         double value = (3.0 / 4.0) * k;
         sum += static_cast<int>(ceil(log2(value)));
     }
-    return sum;
+    return ++sum;
 }
 
 void print_list(a_vec &ref)

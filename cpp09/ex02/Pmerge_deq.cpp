@@ -87,7 +87,7 @@ s_deq phase_one_deq(s_deq l, std::deque<a_deq> &lo)
 	return phase_one_deq(res, lo);
 }
 
-s_deq phase_two(s_deq l, std::deque<a_deq> &lo)
+s_deq phase_two_deq(s_deq l, std::deque<a_deq> &lo)
 {
 	s_deq res;
 	//set up :: add b1 and a1 to the main
@@ -115,6 +115,6 @@ s_deq phase_two(s_deq l, std::deque<a_deq> &lo)
 		binary_insert_deq(res, lo.back(), 0);
 		lo.erase(--lo.end());
 	}
-	if (!(res.front().first.empty())) { return phase_two(res, lo); }
+	if (!(res.front().first.empty())) { return phase_two_deq(res, lo); }
 	return res;
 }
