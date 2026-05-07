@@ -1,0 +1,7 @@
+shaping ::
+	circle + point :: at point, leave one knit and increase on both sides, facing outwards
+		this also works at ribbing spot, but proper measurements are necessary
+		careful with needle v yarn size (holes left in the work)
+	cube box :: knit flat until desired shape, pick up stitches on both sides, knit (on half rounds, slip both sides of each corner attempt)
+		more of a basket result, since the bottom panel only has two sides separated
+	shoulder opening :: base off of circle, then pick two lines to increase around, facing outwards ?
