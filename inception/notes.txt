@@ -1,0 +1,70 @@
+research needed ::
+	.env and env variables
+		make .env file :: basically an extension/replacement for shell env
+		in the .json file, add a newline :: "runArgs" : "--env-file", "[path to file here]"
+	docker-network
+		in docker compose file :: you can ports : [port]:[port] for host to docker interface
+		container to container does not require further exposing, just curl through [container name]:[port wanted]
+		also, don't forget depends_on and the conditions needed
+	daemons && PID 1
+	WordPress && MariaDB
+	admin users in docker containers
+
+
+instructions ::
+	on a vm (as established, sudo is needed etc.)
+	config files necessary to the project at ./srcs
+	Makefile at . ; uses the docker compose commands
+	conatainers built from penultimate version of Debian
+	one Dockerfile + container per service
+	every image has the same name as its corresponding service
+	no pulling ready made images, except Debian
+	volumes are names and not bind mounts
+	both volumes store their data in /home/naorakot/data
+	containers must restart if crash
+	docker-network must be present in docker compose file
+	domain name is naorakot.42.fr
+	Maria and WP are 3306 connected ; NGINX and WP are 9000 connected
+	Maria has access to WP database volume, WP and NGINX have access tp WP website files
+	
+	setup ::
+		container :: NGINX (TSLv1.2 || .3) -> open to port 443 (ws?)
+		container :: WordPress + php-fpm (installed and configured)
+		container :: MariaDB
+		volume :: WordPress database
+			needs two users, one of them admin (no admin in the name)
+		volume :: WordPress website files
+		+ docker-network for a connection between the containers
+	
+	forbiddens ::
+		tail -f types
+		network : host ; --links ; links :
+		infinite loop commands on any container
+		'latest' tag
+		passwords in DockerFile (use an .env file put in .git-ignore)
+		no additional exposed ports (only NGINX)
+	
+	READMEs ::
+		README.md :: [eng]
+			first line in italics "This project..."
+			Description : presentation ; goal & overview
+			Instructions : how to -compile -install -execute
+			Resources : classic references used (that 1h long yt vid, etc.), AI use
+			Project description : explains Docker and design choices and compares :
+				VM v DOcker
+				Secrets v Env vars
+				Docker network v Host network
+				Docker volumes v bind mounts
+		USER_DOC.md ::
+			a how to guide ::
+				services provided (command and how to read it)
+				start/stop project
+				access website and admin panel
+				locate and manage credentials (passwords, etc.)
+				check correct running of services (cmd and htr)
+		DEV_DOC.md ::
+			how to guide ::
+				set up the environment from scratch (config files, pre-requisites, secrets)
+				build + launch (makefile, docker compose)
+				manage containers and volumes (cmd and htr)
+				identify where data is stored and how
