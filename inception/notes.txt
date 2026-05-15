@@ -16,6 +16,22 @@ research needed ::
 		MariaDB :: mySQL database system ; 
 	admin users in docker containers
 
+attempt ::
+	virtual machine + nginx run in one container
+		vm steps :: 
+			download debian iso file from (linux, debian downloads) (13.4.0)
+			give it a name (put os and service in)
+			give it a folder (/vm)
+			dont skip unattended (practical)
+			add default user (username, password) (styx, charon)
+			do not install in background
+			ram set at 4096mb, cpu at 4
+			disk size at 12GB, no pre allocate
+			if mouse is captured while running, hit right control key
+			i ignored a warning message on accident lmao, i think a bash install fail ?
+		once in vm, docker install ::
+			
+
 
 instructions ::
 	on a vm (as established, sudo is needed etc.)
