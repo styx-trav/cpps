@@ -22,7 +22,7 @@ int operate(char *lm)
 			stac.push((*it - '0'));
 		else if (*it != ' ')
 		{
-			if (stac.size() != 2)
+			if (stac.size() < 2)
 				throw std::out_of_range("Error\n");
 			tmp2 = stac.top();
 			stac.pop();

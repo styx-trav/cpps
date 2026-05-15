@@ -2,12 +2,16 @@ research needed ::
 	.env and env variables
 		make .env file :: basically an extension/replacement for shell env
 		in the .json file, add a newline :: "runArgs" : "--env-file", "[path to file here]"
+			i think this might be the dockerfile
+		htu the .env vars in images || in maria/wp setup
 	docker-network
 		in docker compose file :: you can ports : [port]:[port] for host to docker interface
 		container to container does not require further exposing, just curl through [container name]:[port wanted]
 		also, don't forget depends_on and the conditions needed
 	daemons && PID 1
-	WordPress && MariaDB
+	WordPress && php-fpm && MariaDB
+		wordpress :: runs an index.html to log in, i think
+		MariaDB :: mySQL database system ; 
 	admin users in docker containers
 
 

@@ -11,9 +11,9 @@ void do_all(int argc, char **argv)
 		s_vec res;
 		std::vector<a_vec> leftovers;
 		a_vec result;
+		clock_t start = clock();
 		try { setup(argc, argv, list); }
 		catch (std::exception &e) { return ; }
-		clock_t start = clock();
 		if (list.size() < 2) { result = list; }
 		else {
 			res = phase_one(list, leftovers);
@@ -36,9 +36,9 @@ void do_all(int argc, char **argv)
 		s_deq res;
 		std::deque<a_deq> leftovers;
 		a_deq result;
+		clock_t start = clock();
 		try { setup_deq(argc, argv, list); }
 		catch (std::exception &e) { return ; }
-		clock_t start = clock();
 		if (list.size() < 2) { result = list; }
 		else {
 			res = phase_one_deq(list, leftovers);
