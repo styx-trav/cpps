@@ -9,6 +9,8 @@ research needed ::
 		container to container does not require further exposing, just curl through [container name]:[port wanted]
 		also, don't forget depends_on and the conditions needed
 	daemons && PID 1
+		deamon off unless indicated otherwise :: tasks stay in the foreground of its container
+		PID 1 mentioned likely for the lack of signal handling since the CMD is foreground, init (fix with tini(in) or --init(in docker run)) --> does that count as entrypoint forbidden loop script ? bash is forbidden
 	WordPress && php-fpm && MariaDB
 		wordpress :: runs an index.html to log in, i think
 		MariaDB :: mySQL database system ; 
@@ -22,7 +24,6 @@ instructions ::
 	conatainers built from penultimate version of Debian
 	one Dockerfile + container per service
 	every image has the same name as its corresponding service
-	no pulling ready made images, except Debian
 	volumes are names and not bind mounts
 	both volumes store their data in /home/naorakot/data
 	containers must restart if crash
@@ -41,6 +42,7 @@ instructions ::
 		+ docker-network for a connection between the containers
 	
 	forbiddens ::
+		no pulling ready made images, except Debian -> sudo apt update + install instead
 		tail -f types
 		network : host ; --links ; links :
 		infinite loop commands on any container
