@@ -80,6 +80,7 @@ instructions ::
 	
 	forbiddens ::
 		no pulling ready made images, except Debian -> sudo apt update + install instead
+			unsure :: it does say no pull, but what about from ? feels like we might
 		tail -f types
 		network : host ; --links ; links :
 		infinite loop commands on any container
