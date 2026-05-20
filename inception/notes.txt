@@ -3,7 +3,7 @@ research needed ::
 		make .env file :: basically an extension/replacement for shell env
 		in the .json file, add a newline :: "runArgs" : "--env-file", "[path to file here]"
 			i think this might be the dockerfile
-		htu the .env vars in images == ${VAR_HERE} || in maria/wp setup
+		htu the .env vars in images => ${VAR_HERE} || in maria/wp setup
 	docker-network
 		in docker compose file :: you can ports : [port]:[port] for host to docker interface
 		container to container does not require further exposing, just curl through [container name]:[port wanted]
@@ -24,6 +24,7 @@ attempt ::
 			give it a folder (/vm)
 			dont skip unattended (practical)
 			add default user (username, password) (styx, charon)
+			add hostname, domain name according to instructions
 			do not install in background
 			ram set at 4096mb, cpu at 4
 			disk size at 12GB, no pre allocate
@@ -50,6 +51,8 @@ deb-src http://deb.debian.org/debian/ bookworm-updates main non-free non-free-fi
 			attempt a similar result with a custom dockerfiled image
 				no dice so far
 				new files for testing in tester/
+				success !!!!! image from gcc:latest instead of scratch, compile it then run it
+				updated dockerfile on file
 			dont forget FROM (scratch if no image to pull)
 			to delete all containers :: docker stop $(docker ps -q) && docker rm $(docker ps -a -q)
 				ensures all containers have stopped running before deleting
