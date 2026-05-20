@@ -49,6 +49,7 @@ deb-src http://deb.debian.org/debian/ bookworm-updates main non-free non-free-fi
 			attempt a sudo docker hello-world (pulls latest image)
 			attempt a similar result with a custom dockerfiled image
 				no dice so far
+				new files for testing in tester/
 			dont forget FROM (scratch if no image to pull)
 			to delete all containers :: docker stop $(docker ps -q) && docker rm $(docker ps -a -q)
 				ensures all containers have stopped running before deleting
