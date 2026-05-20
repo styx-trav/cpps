@@ -74,7 +74,7 @@ instructions ::
 	Maria has access to WP database volume, WP and NGINX have access tp WP website files
 	
 	setup ::
-		container :: NGINX (TSLv1.2 || .3) -> open to port 443 (ws?)
+		container :: NGINX (TSLv1.2 || .3) -> open to port 443 (ws? both?)
 		container :: WordPress + php-fpm (installed and configured)
 		container :: MariaDB
 		volume :: WordPress database
