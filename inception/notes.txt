@@ -58,11 +58,20 @@ deb-src http://deb.debian.org/debian/ bookworm-updates main non-free non-free-fi
 				ensures all containers have stopped running before deleting
 			to delete images : docker images -a (all images, see in use, delete those containers 1st)
 				docker image rm [image:tag]
+attempt1 - nginx run one static ::
+	see attached files in nginx_folder
+	unfortunately the install of nginx failed ? unsure why but it aborted
+		nvm i forgot the -y in the apt-get install nginx
+	okay, nginx is running and works, just that index is NotFound
+		i think that's being caused by the lack of volumes ?
+		next up :: we add a volume and a docker-compose to run our nginx,
+			and in the volume bind we put our index
+
 instructions ::
 	on a vm (as established, sudo is needed etc.)
 	config files necessary to the project at ./srcs
 	Makefile at . ; uses the docker compose commands
-	conatainers built from penultimate version of Debian
+	containers built from penultimate version of Debian
 	one Dockerfile + container per service
 	every image has the same name as its corresponding service
 	volumes are names and not bind mounts
