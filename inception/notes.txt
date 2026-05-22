@@ -66,6 +66,11 @@ attempt1 - nginx run one static ::
 		i think that's being caused by the lack of volumes ?
 		next up :: we add a volume and a docker-compose to run our nginx,
 			and in the volume bind we put our index
+	volume is up successfully, but i cant seem to make it work properly (not finding it on the inside of the container)
+		to get to the bottom of this, ill make another tester so we can try and find how to access a folder/file)
+	success ! nginx run one static is a go :: id named my volume a real nginx file name, apparently
+	managed to run a index + href (one other page)
+	lets see if updating the host folder updates the volume == no, volume is docker attached
 
 instructions ::
 	on a vm (as established, sudo is needed etc.)
