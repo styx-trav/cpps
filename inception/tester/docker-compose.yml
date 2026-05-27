@@ -1,0 +1,40 @@
+//this file is specifically for the attempt2 - volume to mount file add
+
+volumes:
+ myvolume:
+  name: myvolume
+  driver: local
+  driver-opts:
+   o: bind
+   type: none
+   device: ./path_here
+
+services:
+ adding:
+  build: ./path to docker file here
+  volumes:
+   - myvolume:/here
+
+
+then, in dockerfile ::
+
+FROM debian:bookworm
+
+RUN mkdir /here/also
+
+RUN cd /here/also/
+
+RUN echo "lets see if this works" > txt.txt
+
+CMD ["echo", "all done"]
+
+then, in terminal ::
+
+docker compose up, then down
+check ./path_here for folder /also + file /also/txt.txt containing "lets see if this works\n"
+
+results ::
+empty folder does not go up
+folder + file both go up :: now that folder is full, lets see if we can retrieve it without mkdir - yes
+
+still not sure just how im supposed to make this get back to the host, but its whatever ig

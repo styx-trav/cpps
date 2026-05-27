@@ -1,0 +1,15 @@
+new vm because last one crashed ???? reminder, free space :: 17gb total
+
+file folder : goinfre/vm
+
+username : naorakot
+hostname : naorakot
+domain name : naorakot.42.fr
+
+ram + cpu :: 4096mb, 3
+vm disk :: 12gb
+
+alright, build error again, basically a script misrun - just going to download bookworm again
+build running so far
+
+running

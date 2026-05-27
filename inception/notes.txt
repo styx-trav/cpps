@@ -42,7 +42,7 @@ deb-src http://security.debian.org/debian-security bookworm-security main non-fr
 deb http://deb.debian.org/debian/ bookworm-updates main non-free non-free-firmware contrib
 deb-src http://deb.debian.org/debian/ bookworm-updates main non-free non-free-firmware contrib
 
-++ same with trixie ilo bookworm;;
+++ same with trixie ilo bookworm;; maybe even only trixie ?
 			
 			sudo apt update
 			follow docker recommendations :: https://docs.docker.com/engine/install/debian/
@@ -53,13 +53,12 @@ deb-src http://deb.debian.org/debian/ bookworm-updates main non-free non-free-fi
 				new files for testing in tester/
 				success !!!!! image from gcc:latest instead of scratch, compile it then run it
 				updated dockerfile on file
-			dont forget FROM (scratch if no image to pull)
 			to delete all containers :: docker stop $(docker ps -q) && docker rm $(docker ps -a -q)
 				ensures all containers have stopped running before deleting
 			to delete images : docker images -a (all images, see in use, delete those containers 1st)
 				docker image rm [image:tag]
 attempt1 - nginx run one static ::
-	see attached files in nginx_folder
+	see attached files in nginx_folder -> need added
 	unfortunately the install of nginx failed ? unsure why but it aborted
 		nvm i forgot the -y in the apt-get install nginx
 	okay, nginx is running and works, just that index is NotFound
@@ -68,24 +67,50 @@ attempt1 - nginx run one static ::
 			and in the volume bind we put our index
 	volume is up successfully, but i cant seem to make it work properly (not finding it on the inside of the container)
 		to get to the bottom of this, ill make another tester so we can try and find how to access a folder/file)
-	success ! nginx run one static is a go :: id named my volume a real nginx file name, apparently
+	success ! nginx run one static is a go :: i'd named my volume a real nginx file name, apparently
 	managed to run a index + href (one other page)
 	lets see if updating the host folder updates the volume == no, volume is docker attached
+		however, volume should affect the host folder -> lets make sure that's working
+
+attempt2 - volume to mount file add ::
+	run an image that just makes a copy of a file into the wanted volume, then compose down and check folder
+		success ! data transfers host->volume, then volume->host
+		however, i dont think the volume updates based on host changes unless removed and re-built
+
+attempt3 - nginx with ssl ::
+	declared in the server config file ::
+		listen			443 ssl;
+		server_name		www.site_here.com;
+		ssl_certificate		www.site_here.com.crt;
+		ssl_certificate_key	www.site_here.com.key;
+			//note :: key and cert can be kept in the same restricted file
+		ssl_protocols		TSLv1.2 TSLv1.3;
+		ssl_ciphers		HIGH:!aNULL:!MD5;
+			both above should be configured by default
+		... etc.
+	https can be optimized (see source, i think it might not be necessary. we'll just run slow)
+	certificates + key
+		seemingly theres places you can get that generated and signed - online maybe ? yes
+		its also possible to make your own, but its less browser-compatible w/out a CA and setting one up is long
+	solution ::
+		put the certificate and key in an environment variable(s)
+		in Dockerfile, RUN echo "$SSL_CERT" "$SSL_KEY" > /nginx_cert/name_here.crt
+		then RUN chmod 040 || 400 (unsure)
 
 instructions ::
 	on a vm (as established, sudo is needed etc.)
 	config files necessary to the project at ./srcs
 	Makefile at . ; uses the docker compose commands
-	containers built from penultimate version of Debian
+	containers built from penultimate version of Debian :: ie, FROM debian:bookworm
 	one Dockerfile + container per service
 	every image has the same name as its corresponding service
-	volumes are names and not bind mounts
-	both volumes store their data in /home/naorakot/data
+	volumes are named and not bind mounts :: as is seems good - bound but not mounted, volume is docker attached
+	both volumes store their data in /home/naorakot/data -> of the _host_ machine ?? unsure how to do that exactly
 	containers must restart if crash
 	docker-network must be present in docker compose file
-	domain name is naorakot.42.fr
+	domain name is naorakot.42.fr :: as set up in wordpress i imagine - or on the vm directly ? unsure
 	Maria and WP are 3306 connected ; NGINX and WP are 9000 connected
-	Maria has access to WP database volume, WP and NGINX have access tp WP website files
+	Maria has access to WP database volume, WP and NGINX have access to WP website files
 	
 	setup ::
 		container :: NGINX (TSLv1.2 || .3) -> open to port 443 (ws? both?)
@@ -98,7 +123,7 @@ instructions ::
 	
 	forbiddens ::
 		no pulling ready made images, except Debian -> sudo apt update + install instead
-			unsure :: it does say no pull, but what about from ? feels like we might
+			again, FROM debian:bookworm, then update install
 		tail -f types
 		network : host ; --links ; links :
 		infinite loop commands on any container
