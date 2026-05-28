@@ -85,7 +85,7 @@ attempt3 - nginx with ssl ::
 		ssl_certificate		www.site_here.com.crt;
 		ssl_certificate_key	www.site_here.com.key;
 			//note :: key and cert can be kept in the same restricted file
-		ssl_protocols		TSLv1.2 TSLv1.3;
+		ssl_protocols		TLSv1.2 TLSv1.3;
 		ssl_ciphers		HIGH:!aNULL:!MD5;
 			both above should be configured by default
 		... etc.
@@ -109,6 +109,11 @@ attempt3 - nginx with ssl ::
 			enter necessary info, put '.' for blank -> Common Name should be the exact domain name
 		finally, use both to obtain a self-signed certificate ::
 			openssl x509 -signkey [domain].key -in [domain].csr -req -days 365 -out [domain].crt
+	notes ::
+		ok, so setting up the server once again goes fine
+		listen 443 && [::]:443, fine -> http goes through, https : "secure connexion failed/record too long"
+		listen 443 ssl && [::]:443 ssl (w/\certs)-> http goes through, https : "unable to connect"
+			no security error or anything, just "cannot connect, server might be busy"
 		
 
 instructions ::
