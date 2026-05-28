@@ -61,6 +61,7 @@ attempt1 - nginx run one static ::
 	see attached files in nginx_folder -> need added
 	unfortunately the install of nginx failed ? unsure why but it aborted
 		nvm i forgot the -y in the apt-get install nginx
+	conf files go in the /etc/nginx/conf.d/ folder, with .conf extension, preferably as naorakot.42.fr.conf
 	okay, nginx is running and works, just that index is NotFound
 		i think that's being caused by the lack of volumes ?
 		next up :: we add a volume and a docker-compose to run our nginx,
@@ -96,6 +97,19 @@ attempt3 - nginx with ssl ::
 		put the certificate and key in an environment variable(s)
 		in Dockerfile, RUN echo "$SSL_CERT" "$SSL_KEY" > /nginx_cert/name_here.crt
 		then RUN chmod 040 || 400 (unsure)
+	openssl to create a certificate ::
+		first, install openssl ::
+			update + upgrade
+			apt install openssl
+		first, password-protected RSA key, 2048bit, encrypted ::
+			openssl genrsa -des3 -out [domain].key 2048
+			enter password when asked
+		then, aquire a certificate signing request ::
+			openssl req -key [domain].key -new -out [domain].csr
+			enter necessary info, put '.' for blank -> Common Name should be the exact domain name
+		finally, use both to obtain a self-signed certificate ::
+			openssl x509 -signkey [domain].key -in [domain].csr -req -days 365 -out [domain].crt
+		
 
 instructions ::
 	on a vm (as established, sudo is needed etc.)

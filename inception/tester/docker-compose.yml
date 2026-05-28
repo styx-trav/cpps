@@ -4,7 +4,7 @@ volumes:
  myvolume:
   name: myvolume
   driver: local
-  driver-opts:
+  driver_opts:
    o: bind
    type: none
    device: ./path_here

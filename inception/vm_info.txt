@@ -7,7 +7,7 @@ hostname : naorakot
 domain name : naorakot.42.fr
 
 ram + cpu :: 4096mb, 3
-vm disk :: 12gb
+vm disk :: 12gb - (11.08)
 
 alright, build error again, basically a script misrun - just going to download bookworm again
 build running so far
