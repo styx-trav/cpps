@@ -115,7 +115,15 @@ attempt3 - nginx with ssl ::
 		listen 443 && [::]:443, fine -> http goes through, https : "secure connexion failed/record too long"
 		listen 443 ssl && [::]:443 ssl (w/\certs)-> http goes through, https : "unable to connect"
 			no security error or anything, just "cannot connect, server might be busy"
-		
+		success !!! i'd misspelled TLS for TSL (2 times), and the certificate + key need to be "fresh", i think
+		added a script.sh, linked in tester/
+			dont forget to put both ports in ssl
+		got the warning as expected, but everything worked great
+		still not sure how the domain name is used - inputing it as is doesnt seem successful
+
+attempt4 - wordpress &co ::
+	goal :: installing wordpress and configuring it :: nginx and mariadb
+		maybe start by checking that the environment things work properly with a quick no-brain check
 
 instructions ::
 	on a vm (as established, sudo is needed etc.)
