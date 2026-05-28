@@ -111,6 +111,7 @@ attempt3 - nginx with ssl ::
 			openssl x509 -signkey [domain].key -in [domain].csr -req -days 365 -out [domain].crt
 	notes ::
 		ok, so setting up the server once again goes fine
+		openssl installed from now on, although no visible changes to the outcome
 		listen 443 && [::]:443, fine -> http goes through, https : "secure connexion failed/record too long"
 		listen 443 ssl && [::]:443 ssl (w/\certs)-> http goes through, https : "unable to connect"
 			no security error or anything, just "cannot connect, server might be busy"
