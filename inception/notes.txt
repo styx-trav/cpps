@@ -124,6 +124,19 @@ attempt3 - nginx with ssl ::
 attempt4 - wordpress &co ::
 	goal :: installing wordpress and configuring it :: nginx and mariadb
 		maybe start by checking that the environment things work properly with a quick no-brain check
+		environment is easy to use :: in docker-compose, add env_file : [file here], in Dockerfile call a script and use $
+		next up, notes for wordpress
+	wordpress notes ::
+		to create the crypt keys :: https://api.wordpress.org/secret-key/1.1/salt/
+		file is wp-config.ph, set up at root
+		required outside information :: db_name/user/pwd, db_host (localhost ?), possibly keys, possibly table prefix
+			we'll want to install wordpress + read that file so we can tell whats in it and the best way to modify
+	mariadb notes ::
+		default file my.cnf, og to overload presumably in /etc, can also be /etc/mysql
+		vars are separated into groups they affect
+			ex :: [client-server]\n port=443 ; [client]\n password=pwd ; [mysqld]\n data=/usr/data
+		
+		
 
 instructions ::
 	on a vm (as established, sudo is needed etc.)
