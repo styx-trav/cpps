@@ -120,23 +120,45 @@ attempt3 - nginx with ssl ::
 			dont forget to put both ports in ssl
 		got the warning as expected, but everything worked great
 		still not sure how the domain name is used - inputing it as is doesnt seem successful
+	!!! dont forget to put EXPOSE 443 in nginx Dockerfile for readability, ik its not necessary but it makes explanations easier
+		same for the other ports to expose (9000, 3306)
 
 attempt4 - wordpress &co ::
-	goal :: installing wordpress and configuring it :: nginx and mariadb
-		maybe start by checking that the environment things work properly with a quick no-brain check
-		environment is easy to use :: in docker-compose, add env_file : [file here], in Dockerfile call a script and use $
-		next up, notes for wordpress
+	.env notes ::
+		easy to use :: in docker-compose, add "env_file: [file here]", in Dockerfile call a script and use $
 	wordpress notes ::
+		wordpress install ! ::
+			apt install php php-fpm wget (curl)
+			then, in tmp, you can :: wget https://wordpress.org/latest.tar.gz (thats the official archive)
+			decompress :: tar -xf latest.tar.gz
+			then move the folder to /var/www/html
+			its also saying you could do :: chown www-data:www-data /var/www/html -R
+				but im not sure if we actually need to, since its for apache here
+			and looks like thats it !
 		to create the crypt keys :: https://api.wordpress.org/secret-key/1.1/salt/
 		file is wp-config.ph, set up at root
 		required outside information :: db_name/user/pwd, db_host (localhost ?), possibly keys, possibly table prefix
 			we'll want to install wordpress + read that file so we can tell whats in it and the best way to modify
+			first example - Forstman1 - uses a lot of sed commands im not particularily comfortable with
+			i can tell its substitution, i just cant quite read the language;
+				instead of sed i think we might get beg + end files and echo in between those with the env variables
+		php-fpm config file is www.conf, found /etc/php/[version here](8.2 latest)/fpm/pool.d
+			directives ::
+				[www]\n user = www-data, group = data, pm = static,
+					pm.max_children = 5, listen = 0.0.0.0:9000, listen.owner = www-data, listen.group = www-data,
+					request_slowlog_timeout = 0, ;for comments, chdir = /
 	mariadb notes ::
 		default file my.cnf, og to overload presumably in /etc, can also be /etc/mysql
 		vars are separated into groups they affect
 			ex :: [client-server]\n port=443 ; [client]\n password=pwd ; [mysqld]\n data=/usr/data
-		
-		
+	network spots ::
+		nginx -> wp ; in .conf, at location ~ \.php, "fastcgi_pass wordpress:9000"
+		mariadb -> wp ; in .cnf, at [mysqld], "port = 3306", "bind-address = 0.0.0.0"
+		wp -> nginx ; in /etc/php/.../.conf, "listen = 9000"
+		wp -> mariadb ; ?? seemingly unnecessary ig
+	volume spots ::
+		wp-website :: nginx = root; wp = mkdir + cd at start of process
+		wp-db :: mariadb = in .cnf, at [mysqld], "datadir = [path_here]"
 
 instructions ::
 	on a vm (as established, sudo is needed etc.)
@@ -149,7 +171,7 @@ instructions ::
 	both volumes store their data in /home/naorakot/data -> of the _host_ machine ?? unsure how to do that exactly
 	containers must restart if crash
 	docker-network must be present in docker compose file
-	domain name is naorakot.42.fr :: as set up in wordpress i imagine - or on the vm directly ? unsure
+	domain name is naorakot.42.fr :: as set up in wordpress + nginx
 	Maria and WP are 3306 connected ; NGINX and WP are 9000 connected
 	Maria has access to WP database volume, WP and NGINX have access to WP website files
 	
@@ -177,9 +199,9 @@ instructions ::
 			first line in italics "This project..."
 			Description : presentation ; goal & overview
 			Instructions : how to -compile -install -execute
-			Resources : classic references used (that 1h long yt vid, etc.), AI use
+			Resources : classic references used (that 1h long yt vid, articles, etc.), AI use
 			Project description : explains Docker and design choices and compares :
-				VM v DOcker
+				VM v Docker
 				Secrets v Env vars
 				Docker network v Host network
 				Docker volumes v bind mounts
