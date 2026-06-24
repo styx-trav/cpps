@@ -1,8 +1,6 @@
 research needed ::
 	.env and env variables
 		make .env file :: basically an extension/replacement for shell env
-		in the .json file, add a newline :: "runArgs" : "--env-file", "[path to file here]"
-			i think this might be the dockerfile
 		htu the .env vars in images => ${VAR_HERE} || in maria/wp setup
 	docker-network
 		in docker compose file :: you can ports : [port]:[port] for host to docker interface
@@ -133,7 +131,7 @@ attempt4 - wordpress &co ::
 			decompress :: tar -xf latest.tar.gz
 			then move the folder to /var/www/html
 			its also saying you could do :: chown www-data:www-data /var/www/html -R
-				but im not sure if we actually need to, since its for apache here
+				but im not sure if we actually need to, since its for apache here and we're using nginx
 			and looks like thats it !
 		to create the crypt keys :: https://api.wordpress.org/secret-key/1.1/salt/
 		file is wp-config.ph, set up at root
@@ -144,7 +142,7 @@ attempt4 - wordpress &co ::
 				instead of sed i think we might get beg + end files and echo in between those with the env variables
 		php-fpm config file is www.conf, found /etc/php/[version here](8.2 latest)/fpm/pool.d
 			directives ::
-				[www]\n user = www-data, group = data, pm = static,
+				[www]\n user = www-data, group = www-data, pm = static,
 					pm.max_children = 5, listen = 0.0.0.0:9000, listen.owner = www-data, listen.group = www-data,
 					request_slowlog_timeout = 0, ;for comments, chdir = /
 	mariadb notes ::
@@ -155,7 +153,7 @@ attempt4 - wordpress &co ::
 		nginx -> wp ; in .conf, at location ~ \.php, "fastcgi_pass wordpress:9000"
 		mariadb -> wp ; in .cnf, at [mysqld], "port = 3306", "bind-address = 0.0.0.0"
 		wp -> nginx ; in /etc/php/.../.conf, "listen = 9000"
-		wp -> mariadb ; ?? seemingly unnecessary ig
+		wp -> mariadb ; ?? seemingly unnecessary ig -> i think in wp-config.php, at db_host define
 	volume spots ::
 		wp-website :: nginx = root; wp = mkdir + cd at start of process
 		wp-db :: mariadb = in .cnf, at [mysqld], "datadir = [path_here]"

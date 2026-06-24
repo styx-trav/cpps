@@ -1,0 +1,152 @@
+yesssssssssssssssssssssssss it works !!!!
+now to move all of this to a readable git, get to school, and install it on the new machine.
+ilysm bro, you've quite literally got this
+fuck em up
+
+mariadb secure install questions ::
+	enter (no password yet)
+	n (no unix socket auth)
+	Y (new root password)
+	pwd (new root password)
+	pwd (new password, again)
+	Y (remove anonymous users)
+	Y (disallow root connection out of localhost) n????
+	Y (remove test database)
+	Y (reload privileges)
+
+wordpress issues ::
+	apparently the wp commands shouldn't be run from root, so im 100% back on the write-your-own-config train for sure
+
+notes ::
+	mkdir can be run with -p for parent dir creation ++ no error message if existing 
+	to replace localhost with domain, add "127.0.0.1 [domain]" to /etc/hosts
+	im really, _really_ into malatini42 's version of this project btw
+		the mariadb install and config is so clean, nginx as a standalone user
+			wordpress config (wp-config-sample.php, plenty of sed -i replacements
+		if it works i want it, if it works i steal it :]
+		for the mariadb config, id like to see the .cnf file, actually - so i can maybe add the port to the right group
+
+useful commands ::
+	docker ps -q -a :: all current containers
+		docker stop $(docker ps -q -a) :: stop running containers
+		docker rm $(docker ps -a -q) :: delete all current containers
+	docker images -a :: all current images
+		docker image rm [image name:tag] :: delete image:tag
+	docker volume ls :: all current volumes
+		docker volume rm [volume name] :: delete volume
+
+Makefile commands ::
+	up : docker compose up -d
+	down : docker compose down
+	start : docker compos start
+	stop : docker compose stop
+
+.yml ::
+	volumes:
+		wp_web:
+			driver: local
+			driver_opts:
+				o: bind
+				type: none
+				device: /home/naorakot/data
+		wp_db:
+			//
+	services :
+		nginx:
+			env_file: .env
+			build: [path]
+			restart: always
+			volumes:
+				- wp_web:/var/www/html
+			ports:
+				- 443:443
+!!!			depends_on: (i think)
+		wordpress:
+			// x4
+		mariadb:
+			// x3
+			volumes:
+				- wp_db:/etc/mysql/data (approx)
+	networks:
+		- inception_nw:
+
+Dockerfile nginx ::
+	apt update -y && apt install nginx -y && apt install openssl
+	COPY my.conf in /etc/nginx/conf.d/ ::
+		server {
+			listen 80;
+			server_name inception;
+			return 301 https://$host$request_uri;
+		}
+		server {
+			listen 443 ssl;
+			listen [::]:443 ssl;
+			
+			server_name ;
+			ssl_certificate ;
+			ssl_certificate_key ;
+			ssl_protocols TLSv1.2 TLSv1.3;
+			ssl_ciphers HIGH:!aNULL:!MD5;
+			
+			root /var/www/html;
+			index index.php index.html index.htm;
+			
+			location / {
+				try_files $uri $uri/ =404;
+		    	}
+
+			location ~ \.php$ {
+				fastcgi_pass wordpress:9000;
+				...
+			}
+		}
+	COPY script.sh in ./ ::
+		#!/bin/bash
+
+		#create key + tmp crs + certificate in my.conf paths
+		#chmod both to 444 for nginx use (i think)
+		nginx "daemon off;"
+
+	EXPOSE 443;
+	CMD ["bash", "script.sh"]
+
+Dockerfile wordpress ::
+	apt update -y && apt install php php-fpm wget -y
+	in /tmp, wget https://wordpress.org/latest.tar.gz
+		then tar -xf latest.tar.gz
+		and mv to /var/www/html
+		unsure if we need :: chown www-data:www-data /var/www/html -R
+	rm -f /etc/php/8.2/fpm/pool.d/www.conf
+	COPY www.conf to /etc/php/8.2/fpm/pool.d ::
+		[www]
+		user = www-data
+		group = www-data
+		pm = static
+		pm.max_children = 5
+		listen = 0.0.0.0:9000
+		listen.owner = www-data
+		listen.group = www-data
+		request_slowlog_timeout = 0
+		(maybe) chdir = /
+	cd /var/www/html/
+	fill up > wp-config.php [echoed, i think, using env vars from .env]
+	CMD unsure yet
+
+Dockerfile mariadb ::
+	apt update -y && apt install mariadb mariadb-client
+	COPY my.cnf to /etc/mysql/ ::
+		[mysqld]
+		datadir = /etc/mysql/data
+		port = 3306
+		bind-address : 0.0.0.0
+		...
+	CMD unsure yet
+
+
+
+more research to be done ::
+	wp {if fi} script start
+	wp and mdb starting commands
+	wp and mdb config
+	nginx wp config (~\.php)
+	testing :: wp, then mdb, then adding a wp admin && user, etc. (the setup)
